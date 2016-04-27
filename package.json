@@ -6,5 +6,25 @@
   "dependencies": {
     "laravel-elixir": "^5.0.0",
     "bootstrap-sass": "^3.0.0"
-  }
+  },
+  "name": "triviaquestionsnow",
+  "description": "Trivia site",
+  "version": "1.0.0",
+  "main": "gulpfile.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zablockibros/triviaquestionsnow.git"
+  },
+  "author": "zablockijj@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zablockibros/triviaquestionsnow/issues"
+  },
+  "homepage": "https://github.com/zablockibros/triviaquestionsnow#readme"
 }
