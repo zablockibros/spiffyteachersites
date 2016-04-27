@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('for/{slug}', 'CategoryController@showCategory');
+
+Route::get('question/{id}', 'QuestionController@showQuestion');
