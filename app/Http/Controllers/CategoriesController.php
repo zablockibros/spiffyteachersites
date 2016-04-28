@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App;
 use App\Http\Requests;
 
 class CategoriesController extends Controller
@@ -15,6 +15,12 @@ class CategoriesController extends Controller
      */
     public function view($slug = null)
     {
-        return view('home');
+        $category = App\Category::where('slug', '=', $slug)->firstOrFail();
+        $questions = $category->questions->simplePaginate(10);;
+
+        return view('home', [
+            'category'  => $category,
+            'questions' => $questions
+        ]);
     }
 }

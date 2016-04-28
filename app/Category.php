@@ -9,7 +9,7 @@ class Category extends Model
     /**
      * Get the questions
      */
-    public function comments()
+    public function questions()
     {
         return $this->hasMany('App\Question');
     }
