@@ -22,7 +22,7 @@ Route::get('question/{id}', 'QuestionController@showQuestion');
 /**
  * Logged in routes
  */
-Route::group(['namespace' => 'User', 'middleware' => 'auth', 'prefix' => 'user'], function()
+Route::group(['namespace' => 'User', 'middleware' => ['auth'], 'prefix' => 'user'], function()
 {
 
 });
@@ -30,7 +30,7 @@ Route::group(['namespace' => 'User', 'middleware' => 'auth', 'prefix' => 'user']
 /**
  * Admin routes
  */
-Route::group(['namespace' => 'Admin', 'middleware' => 'admin', 'prefix' => 'admin'], function()
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function()
 {
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
 
@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Admin', 'middleware' => 'admin', 'prefix' => 'admi
 
     });
 });
+
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
