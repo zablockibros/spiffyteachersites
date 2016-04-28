@@ -22,15 +22,18 @@ Route::get('question/{id}', 'QuestionsController@view');
 /**
  * Logged in routes
  */
-Route::group(['namespace' => 'User', 'middleware' => ['auth'], 'prefix' => 'user'], function()
+Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function()
 {
+    Route::get('questions', 'QuestionsController@userIndex');
+
+    Route::get('questions/create', 'QuestionsController@userCreate');
 
 });
 
 /**
  * Admin routes
  */
-Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function()
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function()
 {
     // Controllers Within The "App\Http\Controllers\Admin" Namespace
 
@@ -38,13 +41,6 @@ Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'admin'], 'prefix
         // Controllers Within The "App\Http\Controllers\Admin\User" Namespace
     });
 
-    Route::group(['namespace' => 'Question'], function() {
-
-    });
-
-    Route::group(['namespace' => 'Category'], function() {
-
-    });
 });
 
 Route::auth();
