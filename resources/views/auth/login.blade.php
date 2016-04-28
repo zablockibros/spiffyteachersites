@@ -4,6 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <!--
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
@@ -58,6 +59,41 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+            -->
+
+            <div class="row">
+                <div class="medium-6 medium-centered large-4 large-centered columns">
+
+                    <form method="POST" action="{{ url('/login') }}">
+                        {!! csrf_field() !!}
+                        <div class="row column log-in-form">
+                            <h4 class="text-center">Log in with you email account</h4>
+                            <label>Email
+                                <input type="email" name="email" value="{{ old('email') }}">
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
+                            </label>
+                            <label>Password
+                                <input type="password" name="password">
+                                @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password') }}</strong>
+                                    </span>
+                                @endif
+                            </label>
+                            <label>
+                                <input type="checkbox" name="remember"> Remember Me
+                            </label>
+                            <p><button type="submit" class="button expanded">Log In</button></p>
+                            <p class="text-center"><a href="{{ url('/password/reset') }}">Forgot your password?</a></p>
+                        </div>
+                    </form>
+
                 </div>
             </div>
         </div>
