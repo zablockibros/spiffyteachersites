@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Join Now')
+
 @section('content')
 <div class="container">
     <div class="row">
