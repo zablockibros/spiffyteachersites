@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('for/{slug}', 'CategoryController@showCategory');
+Route::get('for/{slug}', 'CategoriesController@view');
 
-Route::get('question/{id}', 'QuestionController@showQuestion');
+Route::get('question/{id}', 'QuestionsController@view');
 
 /**
  * Logged in routes
