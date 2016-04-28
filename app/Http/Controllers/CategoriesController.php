@@ -16,8 +16,6 @@ class CategoriesController extends Controller
     public function view($slug = null)
     {
         $category = App\Category::where('slug', '=', $slug)->firstOrFail();
-        print_r($category);
-        die();
         $questions = $category->questions->simplePaginate(10);;
 
         return view('home', [
