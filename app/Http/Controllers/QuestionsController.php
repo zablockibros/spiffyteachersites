@@ -20,4 +20,16 @@ class QuestionsController extends Controller
 
         return view('questions.index', ['questions' => $questions]);
     }
+
+    /**
+     * Show a question
+     *
+     * @return Response
+     */
+    public function view($id = null)
+    {
+        $question = Question::findOrFail($id);
+
+        return view('questions.view', ['question' => $question]);
+    }
 }
