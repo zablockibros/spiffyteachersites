@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <div class="wrap bg-grey-light">
+    <div class="wrap bg-grey-light t-pad-20 b-pad-20">
         @yield('content')
     </div>
 

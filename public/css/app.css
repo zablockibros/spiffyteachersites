@@ -10,6 +10,9 @@ body {
 	min-height: 100%;
 }
 
+.top-bar {
+	box-shadow: 0 0 1px rgba(0,0,0,.15);
+}
 .top-bar, .top-bar ul {
 	background-color: #fff;
 }
@@ -23,6 +26,20 @@ body {
 	border-radius: 3px;
 }
 
+.callout {
+	background: #fff;
+	box-shadow: 0 1px 4px rgba(0,0,0,.04);
+	border: 1px solid rgba(0,0,0,.09);
+	border-radius: 3px;
+}
+
+.color-grey {
+	color: #666;
+}
+.color-light-grey {
+	color: #b3b3b3;
+}
+
 .bg-grey-light {
 	background: #fafafa!important;
 }
@@ -33,3 +50,5 @@ body {
 .no-pad {
 	padding: 0 !important;
 }
+.t-pad-20 { padding-top: 20px; }
+.b-pad-20 { padding-top: 20px; }

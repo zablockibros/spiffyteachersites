@@ -5,13 +5,11 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-10 col-md-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    You are logged in!
-                </div>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="callout">
+                <h5>This is a callout.</h5>
+                <p>It has an easy to override visual style, and is appropriately subdued.</p>
+                <a href="#">It's dangerous to go alone, take this.</a>
             </div>
         </div>
     </div>
