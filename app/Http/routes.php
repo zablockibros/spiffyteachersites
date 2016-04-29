@@ -46,3 +46,30 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('sitemap', function(){
+
+    // create new sitemap object
+    $sitemap = App::make("sitemap");
+
+    // add items to the sitemap (url, date, priority, freq)
+    $sitemap->add(URL::to('/'), '2012-08-25T20:10:00+02:00', '1.0', 'daily');
+
+    $categories = DB::table('categories')->orderBy('created_at', 'desc')->get();
+    foreach ($categories as $category)
+    {
+        $sitemap->add(URL::to('/for/'.$category->slug), $category->updated_at, '0.75', 'daily');
+    }
+
+    $questions = DB::table('questions')->orderBy('created_at', 'desc')->get();
+    foreach ($questions as $question)
+    {
+        $sitemap->add(URL::to('/question/'.$question->slug), $question->updated_at, '0.50', 'monthly');
+    }
+
+    // generate your sitemap (format, filename)
+    $sitemap->store('xml', 'sitemap');
+    // this will generate file sitemap.xml to your public folder
+
+    return $sitemap->render('xml');
+});
