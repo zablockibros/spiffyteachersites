@@ -1,4 +1,35 @@
+html, body {
+	min-height: 100%;
+}
+
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+.wrap {
+	min-height: 100%;
+}
+
+.top-bar, .top-bar ul {
+	background-color: #fff;
+}
+.top-bar a {
+	color: #222;
+}
+
 .log-in-form {
 	border: 1px solid #cacaca;
 	padding: 1rem;
-	border-radius: 3px; }
+	border-radius: 3px;
+}
+
+.bg-grey-light {
+	background: #fafafa!important;
+}
+.bg-white {
+	background: white !important;
+}
+
+.no-pad {
+	padding: 0 !important;
+}

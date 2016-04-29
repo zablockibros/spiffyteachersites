@@ -9,32 +9,27 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:100,300,400,700">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,300' rel='stylesheet' type='text/css'>
 
     <!-- Styles -->
     <link href="{{ url('/css/foundation.css') }}" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Lato';
-        }
-
-        .fa-btn {
-            margin-right: 6px;
-        }
-    </style>
+    <link href="{{ url('/css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div class="top-bar">
+    <div class="title-bar" data-responsive-toggle="nav" data-hide-for="medium">
+        <button class="menu-icon" type="button" data-toggle></button>
+        <div class="title-bar-title">TriviaQuestionsNow.com</div>
+    </div>
+    <div id="nav" class="top-bar bg-white">
         <div class="row">
             <div class="top-bar-left">
                 <ul class="dropdown menu" data-dropdown-menu>
-                    <li class="menu-text">TQN.com</li>
-                    <li><a href="{{ url('/home') }}">Home</a></li>
+                    <li class="menu-text"><a href="{{ url('/') }}" class="no-pad">TQN.com</a></li>
                 </ul>
             </div>
+            @if (1 == 2)
             <div class="top-bar-right">
-                <ul class="dropdown menu" data-dropdown-menu>
+                <ul class="dropdown menu vertical medium-horizontal" data-dropdown-menu>
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
@@ -51,10 +46,22 @@
                     @endif
                 </ul>
             </div>
+            @endif
+            <div class="top-bar-right">
+                <ul class="dropdown menu vertical medium-horizontal" data-dropdown-menu>
+                    <li><a href="{{ url('/for/sports-trivia') }}">Sports Trivia</a></li>
+                    <li><a href="{{ url('/for/music-trivia') }}">Music Trivia</a></li>
+                    <li><a href="{{ url('/for/christmas-trivia') }}">Christmas Trivia</a></li>
+                    <li><a href="{{ url('/for/math-trivia') }}">Math Trivia</a></li>
+                    <li><a href="{{ url('/for/movie-trivia') }}">Movie Trivia</a></li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    @yield('content')
+    <div class="wrap bg-grey-light">
+        @yield('content')
+    </div>
 
     <!-- JavaScripts -->
     <script src="{{ url('/js/vendor/jquery.js') }}"></script>
