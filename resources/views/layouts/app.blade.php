@@ -24,7 +24,7 @@
         <div class="row">
             <div class="top-bar-left">
                 <ul class="dropdown menu" data-dropdown-menu>
-                    <li class="menu-text"><a href="{{ url('/') }}" class="no-pad">TQN.com</a></li>
+                    <li class="menu-text"><a href="{{ url('/') }}" class="no-pad">TriviaQN</a></li>
                 </ul>
             </div>
             @if (1 == 2)

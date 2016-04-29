@@ -24,9 +24,31 @@ Route::get('question/{id}', 'QuestionsController@view');
  */
 Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function()
 {
+    // Categories
+    Route::get('categories', 'CategoriesController@userIndex');
+
+    Route::get('categories/new', 'CategoriesController@userNew');
+
+    Route::post('categories/create', 'CategoriesController@userCreate');
+
+    Route::get('categories/view', 'CategoriesController@userView');
+
+    Route::post('categories/edit', 'CategoriesController@userUpdate');
+
+    Route::post('categories/delete', 'CategoriesController@userDelete');
+
+    // Questions
     Route::get('questions', 'QuestionsController@userIndex');
 
-    Route::get('questions/create', 'QuestionsController@userCreate');
+    Route::get('questions/new', 'QuestionsController@userNew');
+
+    Route::post('questions/create', 'QuestionsController@userCreate');
+
+    Route::get('questions/view', 'QuestionsController@userView');
+
+    Route::post('questions/edit', 'QuestionsController@userUpdate');
+
+    Route::post('questions/delete', 'QuestionsController@userDelete');
 
 });
 
@@ -45,7 +67,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function(
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+//Route::get('/home', 'HomeController@index');
 
 Route::get('sitemap', function(){
 
