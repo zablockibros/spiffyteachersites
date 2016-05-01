@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Carbon;
 
 class CategoryTableSeeder extends Seeder
 {
