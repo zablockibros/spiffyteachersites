@@ -12,7 +12,7 @@ class QuestionsController extends Controller
 {
     public function home(Request $request)
     {
-        $questions = Question::orderBy('id', 'desc')->paginate(15);
+        $questions = Question::orderBy('id', 'desc')->paginate(7);
         $categories = Category::all();
 
         return view('questions.home', [
