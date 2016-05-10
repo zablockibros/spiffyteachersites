@@ -17,10 +17,12 @@ class CategoriesController extends Controller
     {
         $category = App\Category::where('slug', '=', $slug)->firstOrFail();
         $questions = App\Question::where('category_id', '=', $category->id)->orderBy('id', 'desc')->paginate(10);
+        $categories = App\Category::all();
 
         return view('categories.view', [
             'category'  => $category,
-            'questions' => $questions
+            'questions' => $questions,
+            'categories' => $categories
         ]);
     }
 

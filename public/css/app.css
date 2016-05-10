@@ -40,10 +40,10 @@ h1, h2, h3, h4, h5, h6 {
 	border-radius: 3px;
 }
 
-.color-grey {
+.color-grey, .grey {
 	color: #666;
 }
-.color-light-grey {
+.color-light-grey, .light-grey {
 	color: #b3b3b3;
 }
 
@@ -54,6 +54,14 @@ h1, h2, h3, h4, h5, h6 {
 	background: white !important;
 }
 
+.no-list-style {
+	list-style-type: none !important;
+	margin-left: 0;
+}
+
+.fs--3 { font-size: 0.7rem !important; }
+.fs--2 { font-size: 0.8rem !important; }
+.fs--1 { font-size: 0.9rem !important; }
 .fs-0 { font-size: 1rem !important;  }
 .fs-1 { font-size: 1.1rem !important;  }
 .fs-2 { font-size: 1.2rem !important;  }
@@ -74,4 +82,8 @@ h1, h2, h3, h4, h5, h6 {
 	[data-hide-for="medium"] {
 		display: none !important;
 	}
+}
+
+hr {
+	border-bottom: 1px solid #ddd;
 }

@@ -13,9 +13,11 @@ class QuestionsController extends Controller
     public function home(Request $request)
     {
         $questions = Question::orderBy('id', 'desc')->paginate(15);
+        $categories = Category::all();
 
         return view('questions.home', [
-            'questions' => $questions
+            'questions' => $questions,
+            'categories' => $categories
         ]);
     }
     
@@ -27,8 +29,12 @@ class QuestionsController extends Controller
     public function index()
     {
         $questions = Question::orderBy('id', 'desc')->paginate(15);
+        $categories = Category::all();
 
-        return view('questions.index', ['questions' => $questions]);
+        return view('questions.index', [
+            'questions' => $questions,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -39,8 +45,12 @@ class QuestionsController extends Controller
     public function view($id = null)
     {
         $question = Question::findOrFail($id);
+        $categories = Category::all();
 
-        return view('questions.view', ['question' => $question]);
+        return view('questions.view', [
+            'question' => $question,
+            'categories' => $categories
+        ]);
     }
 
     /**

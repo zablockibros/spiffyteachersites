@@ -13,7 +13,7 @@
 
 Route::get('/', 'QuestionsController@home');
 
-Route::get('for/{slug}', 'CategoriesController@view');
+Route::get('for/{slug}', ['as' => 'category', 'uses' => 'CategoriesController@view']);
 
 Route::get('question/{id}', 'QuestionsController@view');
 
