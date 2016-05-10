@@ -27,7 +27,11 @@
                         @foreach ($questions as $question)
                             <tr>
                                 <td>{{ $question->name }}</td>
-                                <td>{{ $question->category->name }}</td>
+                                @if($question->category)
+                                    <td>{{ $question->category->name }}</td>
+                                @else
+                                    <td><em>None</em></td>
+                                @endif
                                 <td>{{ $question->slug }}</td>
                                 <td>{{ $question->question }}</td>
                                 <td>{{ $question->answer }}</td>

@@ -199,17 +199,21 @@ class QuestionsController extends Controller
                         $row['name'] = str_limit($row['question'], 64);
                     }
                     if (!empty($row['category'])) {
-                        $category = Category::where('slug', 'LIKE', '%'.$row['category'].'%')->first();
+                        $category = Category::where('slug', 'LIKE', '%'.trim($row['category']).'%')->first();
                         if ($category) {
                             $row['category_id'] = $category->id;
                         }
                     }
                     if (empty($row['category_id']) && $general) {
                         $row['category_id'] = $general->id;
-                    } else {
+                    } else if (empty($row['category_id'])) {
                         $row['category_id'] = null;
                     }
                     if (empty($row['difficulty'])) {
+                        $row['difficulty'] = 'easy';
+                    } else if (in_array(trim($row['difficulty']), array_keys(Question::DIFFICULTIES))) {
+                        $row['difficulty'] = trim($row['difficulty']);
+                    } else {
                         $row['difficulty'] = 'easy';
                     }
 
