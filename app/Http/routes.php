@@ -15,7 +15,7 @@ Route::get('/', 'QuestionsController@home');
 
 Route::get('for/{slug}', ['as' => 'category', 'uses' => 'CategoriesController@view']);
 
-Route::get('question/{id}', 'QuestionsController@view');
+Route::get('question/{slug}', 'QuestionsController@view');
 
 /**
  * Logged in routes
@@ -47,6 +47,11 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'user'], function()
     Route::post('questions/update/{id}', ['as' => 'questions.userUpdate', 'uses' => 'QuestionsController@userUpdate']);
 
     Route::delete('questions/delete/{id}', ['as' => 'questions.userDelete', 'uses' => 'QuestionsController@userDelete']);
+
+
+    Route::get('questions/upload', ['as' => 'questions.userUpload', 'uses' => 'QuestionsController@userUpload']);
+
+    Route::post('questions/upload', ['as' => 'questions.userUploadNow', 'uses' => 'QuestionsController@userUploadNow']);
 
 });
 

@@ -4,7 +4,31 @@
   <url>
     <loc>http://trivia.local</loc>
 		<priority>1.0</priority>
-		<lastmod>2016-05-10T13:16:54+00:00</lastmod>
+		<lastmod>2016-05-10T20:00:21+00:00</lastmod>
+		<changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/for/science-trivia</loc>
+		<priority>0.75</priority>
+		<lastmod>2016-05-10T18:53:45+00:00</lastmod>
+		<changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/for/tv-trivia</loc>
+		<priority>0.75</priority>
+		<lastmod>2016-05-10T18:43:54+00:00</lastmod>
+		<changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/for/general</loc>
+		<priority>0.75</priority>
+		<lastmod>2016-05-10T18:42:44+00:00</lastmod>
+		<changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/for/bible-trivia</loc>
+		<priority>0.75</priority>
+		<lastmod>2016-05-10T18:37:00+00:00</lastmod>
 		<changefreq>daily</changefreq>
   </url>
   <url>
@@ -20,13 +44,7 @@
 		<changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>http://trivia.local/for/music-trivia</loc>
-		<priority>0.75</priority>
-		<lastmod>2016-05-01T17:45:16+00:00</lastmod>
-		<changefreq>daily</changefreq>
-  </url>
-  <url>
-    <loc>http://trivia.local/for/math-trivia</loc>
+    <loc>http://trivia.local/for/history-trivia</loc>
 		<priority>0.75</priority>
 		<lastmod>2016-05-01T17:45:16+00:00</lastmod>
 		<changefreq>daily</changefreq>
@@ -38,10 +56,142 @@
 		<changefreq>daily</changefreq>
   </url>
   <url>
-    <loc>http://trivia.local/for/history-trivia</loc>
+    <loc>http://trivia.local/for/math-trivia</loc>
 		<priority>0.75</priority>
 		<lastmod>2016-05-01T17:45:16+00:00</lastmod>
 		<changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/for/music-trivia</loc>
+		<priority>0.75</priority>
+		<lastmod>2016-05-01T17:45:16+00:00</lastmod>
+		<changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/aspirin-tree</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T20:43:20+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/fancy-fonts</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T20:42:20+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/snoopy-breed</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T20:41:20+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/largest-shark-ever</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T20:40:34+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/harry-potter-1-release</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T20:26:16+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/first-mtv-music-video</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T19:09:55+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/second-atom-bomb-where</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T19:09:26+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/number-of-team-in-the-nfl</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T19:08:50+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/quebec-capital</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T19:08:19+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/first-model-t-color</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T19:07:56+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/proper-name-for-inkblot-test</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T19:02:09+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/where-s-area-51</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:55:50+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/second-planet-from-the-sun</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:55:16+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/what-year-did-the-titanic-sink</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:54:24+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/what-element-lead-to-being-mad-as-a-hatter</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:53:56+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/ruby-tuesday</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:45:12+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/first-dr-who-actor</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:44:30+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/first-us-pizzeria</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:43:25+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/longest-waterfall</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:43:06+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/columbus-discovers-the-new-world</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:39:20+00:00</lastmod>
+		<changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>http://trivia.local/question/first-three-words-in-the-bible</loc>
+		<priority>0.50</priority>
+		<lastmod>2016-05-10T18:37:49+00:00</lastmod>
+		<changefreq>monthly</changefreq>
   </url>
 </urlset>
 

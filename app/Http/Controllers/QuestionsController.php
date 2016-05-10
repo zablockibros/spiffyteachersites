@@ -42,9 +42,9 @@ class QuestionsController extends Controller
      *
      * @return Response
      */
-    public function view($id = null)
+    public function view($slug = null)
     {
-        $question = Question::findOrFail($id);
+        $question = Question::where('slug', $slug)->firstOrFail();;
         $categories = Category::all();
 
         return view('questions.view', [
