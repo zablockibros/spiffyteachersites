@@ -49,6 +49,15 @@ class QuestionsController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function userNew(Request $request)
+    {
+        return view('questions.userNew', []);
+    }
+
+    /**
      * Create a new question.
      *
      * @param  Request  $request
@@ -58,14 +67,64 @@ class QuestionsController extends Controller
     {
         $this->validate($request, [
             'question'  => 'required|max:2000',
-            'answer'    => 'required|max:255',
+            'answer'    => 'required|max:255'
         ]);
 
-        $request->user()->questions()->create([
-            'question'  => $request->question,
-            'answer'    => $request->answer,
+        $request->user()->questions()->create($request->all());
+
+        $request->session()->flash('question', 'Question successfully added!');
+
+        return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function userView(Request $request, $id)
+    {
+        $question = Question::findOrFail($id);
+
+        return view('questions.userView', [
+            'question'  => $question
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function userUpdate(Request $request, $id)
+    {
+        $question = Question::findOrFail($id);
+
+        $this->validate($request, [
+            'name' => 'required|string',
+            'description' => 'string'
         ]);
 
-        return redirect('/user/questions');
+        $question->fill($request->all())->save();
+
+        $request->session()->flash('question', 'question successfully updated!');
+
+        return redirect()->back();
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
+    public function userDelete(Request $request, $id)
+    {
+        $question = Question::findOrFail($id);
+
+        $question->delete();
+
+        $request->session()->flash('question', 'question successfully deleted!');
+
+        return redirect()->route('questions.userIndex');
     }
 }

@@ -25,30 +25,30 @@ Route::get('question/{id}', 'QuestionsController@view');
 Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function()
 {
     // Categories
-    Route::get('categories', 'CategoriesController@userIndex');
+    Route::get('categories', ['categories.userIndex', 'CategoriesController@userIndex']);
 
-    Route::get('categories/new', 'CategoriesController@userNew');
+    Route::get('categories/new', ['categories.userNew', 'CategoriesController@userNew']);
 
-    Route::post('categories/create', 'CategoriesController@userCreate');
+    Route::post('categories', ['categories.userCreate', 'CategoriesController@userCreate']);
 
-    Route::get('categories/view', 'CategoriesController@userView');
+    Route::get('categories/view/{id}', ['categories.userView', 'CategoriesController@userView']);
 
-    Route::post('categories/edit', 'CategoriesController@userUpdate');
+    Route::post('categories/update/{id}', ['categories.userUpdate', 'CategoriesController@userUpdate']);
 
-    Route::post('categories/delete', 'CategoriesController@userDelete');
+    Route::post('categories/delete/{id}', ['categories.userDelete', 'CategoriesController@userDelete']);
 
     // Questions
-    Route::get('questions', 'QuestionsController@userIndex');
+    Route::get('questions', ['questions.userIndex', 'QuestionsController@userIndex']);
 
-    Route::get('questions/new', 'QuestionsController@userNew');
+    Route::get('question/new', ['questions.userNew', 'QuestionsController@userNew']);
 
-    Route::post('questions/create', 'QuestionsController@userCreate');
+    Route::post('question', ['questions.userCreate', 'QuestionsController@userCreate']);
 
-    Route::get('questions/view', 'QuestionsController@userView');
+    Route::get('question/view/{id}', ['questions.userView', 'QuestionsController@userView']);
 
-    Route::post('questions/edit', 'QuestionsController@userUpdate');
+    Route::get('question/update/{id}', ['questions.userUpdate', 'QuestionsController@userUpdate']);
 
-    Route::post('questions/delete', 'QuestionsController@userDelete');
+    Route::post('question/delete/{id}', ['questions.userDelete', 'QuestionsController@userDelete']);
 
 });
 
