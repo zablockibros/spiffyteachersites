@@ -199,6 +199,11 @@ class QuestionsController extends Controller
                     if (empty($row['difficulty'])) {
                         $row['difficulty'] = 'easy';
                     }
+                    if (!empty($row['added'])) {
+                        if ($row['added']) {
+                            continue;
+                        }
+                    }
 
                     $data = array_only($row, ['name', 'category_id', 'question', 'answer', 'difficulty']);
 
