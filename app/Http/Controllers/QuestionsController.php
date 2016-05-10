@@ -190,19 +190,27 @@ class QuestionsController extends Controller
                 $general = Category::where('slug', 'general')->first();
 
                 foreach($data as $row) {
-                    if (empty($row['name'])) {
-                        $row['name'] = str_limit($row['question'], 100);
-                    }
-                    if (empty($row['category_id']) && $general) {
-                        $row['category_id'] = $general->id;
-                    }
-                    if (empty($row['difficulty'])) {
-                        $row['difficulty'] = 'easy';
-                    }
                     if (!empty($row['added'])) {
                         if ($row['added']) {
                             continue;
                         }
+                    }
+                    if (empty($row['name'])) {
+                        $row['name'] = str_limit($row['question'], 64);
+                    }
+                    if (!empty($row['category'])) {
+                        $category = Category::where('name', 'LIKE', '%'.$row['category'].'%')->first();
+                        if ($category) {
+                            $row['category_id'] = $category->id;
+                        }
+                    }
+                    if (empty($row['category_id']) && $general) {
+                        $row['category_id'] = $general->id;
+                    } else {
+                        $row['category_id'] = null;
+                    }
+                    if (empty($row['difficulty'])) {
+                        $row['difficulty'] = 'easy';
                     }
 
                     $data = array_only($row, ['name', 'category_id', 'question', 'answer', 'difficulty']);
