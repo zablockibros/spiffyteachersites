@@ -15,12 +15,16 @@
                     <p class="fs--1 grey">{{ $category->description or '' }}</p>
                 @endif
                 <hr />
-                    <h3>Other Categories</h3>
-                    <ul class="menu simple fs--1">
-                    @foreach ($categories as $category)
-                        <li><a href="{{ route('category', ['slug' => $category->slug]) }}">{{ $category->name or '' }}</a></li>
-                    @endforeach
-                    </ul>
+                <h3>Other Categories</h3>
+                <ul class="menu simple fs--1">
+                @foreach ($categories as $category)
+                    <li><a href="{{ route('category', ['slug' => $category->slug]) }}">{{ $category->name or '' }}</a></li>
+                @endforeach
+                </ul>
+                <hr />
+                <div class="text-center fs--2">
+                    &copy;2016 TriviaQuestionsNow.com
+                </div>
             </div>
         </div>
     </div>
