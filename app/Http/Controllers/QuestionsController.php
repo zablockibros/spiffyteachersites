@@ -199,7 +199,7 @@ class QuestionsController extends Controller
                         $row['name'] = str_limit($row['question'], 64);
                     }
                     if (!empty($row['category'])) {
-                        $category = Category::where('name', 'LIKE', '%'.$row['category'].'%')->first();
+                        $category = Category::where('slug', 'LIKE', '%'.$row['category'].'%')->first();
                         if ($category) {
                             $row['category_id'] = $category->id;
                         }
