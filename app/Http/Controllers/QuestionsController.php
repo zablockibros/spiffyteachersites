@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Question;
+use App\Category;
 
 class QuestionsController extends Controller
 {
@@ -43,7 +44,7 @@ class QuestionsController extends Controller
     {
         $questions = $request->user()->questions()->get();
 
-        return view('questions.users.index', [
+        return view('questions.userIndex', [
             'questions' => $questions,
         ]);
     }
@@ -54,7 +55,11 @@ class QuestionsController extends Controller
      */
     public function userNew(Request $request)
     {
-        return view('questions.userNew', []);
+        $categories = Category::lists('name', 'id');
+
+        return view('questions.userNew', [
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -66,13 +71,15 @@ class QuestionsController extends Controller
     public function userCreate(Request $request)
     {
         $this->validate($request, [
+            'category_id' => 'required|exists:categories,id',
+            'name' => 'required|string',
             'question'  => 'required|max:2000',
             'answer'    => 'required|max:255'
         ]);
 
         $request->user()->questions()->create($request->all());
 
-        $request->session()->flash('question', 'Question successfully added!');
+        $request->session()->flash('question-success', 'Question successfully added!');
 
         return redirect()->back();
     }
@@ -85,9 +92,11 @@ class QuestionsController extends Controller
     public function userView(Request $request, $id)
     {
         $question = Question::findOrFail($id);
+        $categories = Category::lists('name', 'id');
 
         return view('questions.userView', [
-            'question'  => $question
+            'question'  => $question,
+            'categories' => $categories
         ]);
     }
 
@@ -101,13 +110,15 @@ class QuestionsController extends Controller
         $question = Question::findOrFail($id);
 
         $this->validate($request, [
+            'category_id' => 'required|exists:categories,id',
             'name' => 'required|string',
-            'description' => 'string'
+            'question'  => 'required|max:2000',
+            'answer'    => 'required|max:255'
         ]);
 
         $question->fill($request->all())->save();
 
-        $request->session()->flash('question', 'question successfully updated!');
+        $request->session()->flash('question-success', 'question successfully updated!');
 
         return redirect()->back();
     }
@@ -123,7 +134,7 @@ class QuestionsController extends Controller
 
         $question->delete();
 
-        $request->session()->flash('question', 'question successfully deleted!');
+        $request->session()->flash('question-success', 'question successfully deleted!');
 
         return redirect()->route('questions.userIndex');
     }

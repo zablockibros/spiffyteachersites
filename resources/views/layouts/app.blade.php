@@ -54,6 +54,29 @@
                     <li><a href="{{ url('/for/christmas-trivia') }}">Christmas Trivia</a></li>
                     <li><a href="{{ url('/for/math-trivia') }}">Math Trivia</a></li>
                     <li><a href="{{ url('/for/movie-trivia') }}">Movie Trivia</a></li>
+                    @if (Auth::check())
+                        <li class="dropdown">
+                            <a href="#">
+                                Categories <span class="caret"></span>
+                            </a>
+
+                            <ul class="menu vertical">
+                                <li><a href="{{ route('categories.userIndex') }}">View Category</a></li>
+                                <li><a href="{{ route('categories.userNew') }}">New Category</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#">
+                                Questions <span class="caret"></span>
+                            </a>
+
+                            <ul class="menu vertical">
+                                <li><a href="{{ route('questions.userIndex') }}">View Questions</a></li>
+                                <li><a href="{{ route('questions.userNew') }}">New Question</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ url('/logout') }}">Logout</a></li>
+                    @endif
                 </ul>
             </div>
         </div>

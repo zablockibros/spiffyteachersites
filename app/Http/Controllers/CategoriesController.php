@@ -59,9 +59,9 @@ class CategoriesController extends Controller
 
         $category = App\Category::create($request->all());
 
-        $request->session()->flash('category', 'Category successfully added!');
+        $request->session()->flash('category-success', 'Category successfully added!');
 
-        return redirect()->back();
+        return redirect()->route('categories.userIndex');
     }
 
     /**
@@ -94,7 +94,7 @@ class CategoriesController extends Controller
 
         $category->fill($request->all())->save();
 
-        $request->session()->flash('category', 'Category successfully updated!');
+        $request->session()->flash('category-success', 'Category successfully updated!');
 
         return redirect()->back();
     }
@@ -110,7 +110,7 @@ class CategoriesController extends Controller
 
         $category->delete();
 
-        $request->session()->flash('category', 'Category successfully deleted!');
+        $request->session()->flash('category-success', 'Category successfully deleted!');
 
         return redirect()->route('categories.userIndex');
     }
