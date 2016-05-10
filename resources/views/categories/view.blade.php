@@ -11,7 +11,7 @@
                 {!! $questions->links() !!}
             </div>
             <div class="large-4 medium-4 columns">
-                @if ($category->description)
+                @if ($category->description && $questions->currentPage() < 2)
                     <p class="fs--1 grey">{{ $category->description or '' }}</p>
                 @endif
                 <hr />

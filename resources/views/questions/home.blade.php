@@ -7,7 +7,9 @@
         <div class="row align-center">
             <div class="large-8 medium-8 columns">
                 <h1 class="fs-3 bold">Trivia Questions</h1>
-                <p class="fs--1 grey">Welcome to TriviaQuestionsNow.com, your repository of trivia questions and answers.</p>
+                @if ($questions->currentPage() < 2)
+                    <p class="fs--1 grey">Welcome to TriviaQuestionsNow.com, your repository of trivia questions and answers. Great trivia tests your knowledge of useless tidbits and facts in areas such as history, science, entertainment, and sports. The mission of TriviaQuestionsNow.com is to test provide the best trivia questions and answers to test users across the world.</p>
+                @endif
                 @each('question', $questions, 'question', 'empty-questions')
                 {!! $questions->links() !!}
             </div>
