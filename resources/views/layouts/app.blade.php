@@ -61,7 +61,7 @@
                             </a>
 
                             <ul class="menu vertical">
-                                <li><a href="{{ route('categories.userIndex') }}">View Category</a></li>
+                                <li><a href="{{ route('categories.userIndex') }}">View Categories</a></li>
                                 <li><a href="{{ route('categories.userNew') }}">New Category</a></li>
                             </ul>
                         </li>
@@ -73,6 +73,7 @@
                             <ul class="menu vertical">
                                 <li><a href="{{ route('questions.userIndex') }}">View Questions</a></li>
                                 <li><a href="{{ route('questions.userNew') }}">New Question</a></li>
+                                <li><a href="{{ route('questions.userExcel') }}">Upload by Excel</a></li>
                             </ul>
                         </li>
                         <li><a href="{{ url('/logout') }}">Logout</a></li>

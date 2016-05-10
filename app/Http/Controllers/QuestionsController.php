@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Question;
 use App\Category;
+use Excel;
+use Validator;
 
 class QuestionsController extends Controller
 {
@@ -61,7 +63,7 @@ class QuestionsController extends Controller
      */
     public function userIndex(Request $request)
     {
-        $questions = $request->user()->questions()->get();
+        $questions = Question::orderBy('id', 'desc')->paginate(25);
 
         return view('questions.userIndex', [
             'questions' => $questions,
@@ -160,5 +162,69 @@ class QuestionsController extends Controller
         $request->session()->flash('question-success', 'question successfully deleted!');
 
         return redirect()->route('questions.userIndex');
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function userExcel(Request $request)
+    {
+        return view('questions.userExcel', [
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return mixed
+     */
+    public function userExcelUpload(Request $request)
+    {
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            Excel::load($file, function($reader) {
+                $count = 0;
+                $questions = [];
+                $data = $reader->toArray();
+                $general = Category::where('slug', 'general')->first();
+
+                foreach($data as $row) {
+                    if (empty($row['name'])) {
+                        $row['name'] = str_limit($row['question'], 100);
+                    }
+                    if (empty($row['category_id']) && $general) {
+                        $row['category_id'] = $general->id;
+                    }
+                    if (empty($row['difficulty'])) {
+                        $row['difficulty'] = 'easy';
+                    }
+
+                    $data = array_only($row, ['name', 'category_id', 'question', 'answer', 'difficulty']);
+
+                    $validator = Validator::make(
+                        $data,
+                        [
+                            'question'  => 'required|max:2000',
+                            'answer'    => 'required|max:255',
+                        ]
+                    );
+                    if ($validator->fails()) {
+                        continue;
+                    }
+
+                    if ($question = Question::create($data)) {
+                        $count++;
+                        $questions[] = $question;
+                    }
+                }
+
+                echo 'RECORDS CREATED: '.$count.'<br />';
+                dump($questions);
+            });
+        }
+
+        return view('questions.userExcel', [
+        ]);
     }
 }

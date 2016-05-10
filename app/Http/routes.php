@@ -49,9 +49,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'user'], function()
     Route::delete('questions/delete/{id}', ['as' => 'questions.userDelete', 'uses' => 'QuestionsController@userDelete']);
 
 
-    Route::get('questions/upload', ['as' => 'questions.userUpload', 'uses' => 'QuestionsController@userUpload']);
+    Route::get('questions/excel', ['as' => 'questions.userExcel', 'uses' => 'QuestionsController@userExcel']);
 
-    Route::post('questions/upload', ['as' => 'questions.userUploadNow', 'uses' => 'QuestionsController@userUploadNow']);
+    Route::post('questions/excel/upload', ['as' => 'questions.userExcelUpload', 'uses' => 'QuestionsController@userExcelUpload']);
 
 });
 

@@ -5,9 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Question extends Model implements SluggableInterface
 {
+    use SoftDeletes;
+    
     const DIFFICULTIES = [
         'easy' => 'Easy',
         'medium' => 'Medium',
