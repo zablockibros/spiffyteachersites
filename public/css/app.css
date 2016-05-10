@@ -6,6 +6,12 @@ body {
 	font-family: 'Source Sans Pro', sans-serif;
 }
 
+/** Sanitize **/
+h1, h2, h3, h4, h5, h6 {
+	font-size: 1rem;
+	font-weight: normal;
+}
+
 .wrap {
 	min-height: 100%;
 }
@@ -47,8 +53,18 @@ body {
 	background: white !important;
 }
 
+.fs-0 { font-size: 1rem !important;  }
+.fs-1 { font-size: 1.1rem !important;  }
+.fs-2 { font-size: 1.2rem !important;  }
+.fs-3 { font-size: 1.3rem !important;  }
+.fs-4 { font-size: 1.4rem !important;  }
+.fs-5 { font-size: 1.5rem !important;  }
+.bold { font-weight: bold !important; }
+
 .no-pad {
 	padding: 0 !important;
 }
 .t-pad-20 { padding-top: 20px; }
 .b-pad-20 { padding-top: 20px; }
+
+.hide { display: none; }

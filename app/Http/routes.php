@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'QuestionsController@home');
 
 Route::get('for/{slug}', 'CategoriesController@view');
 
@@ -22,7 +20,7 @@ Route::get('question/{id}', 'QuestionsController@view');
 /**
  * Logged in routes
  */
-Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function()
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'user'], function()
 {
     // Categories
     Route::get('categories', ['as' => 'categories.userIndex', 'uses' => 'CategoriesController@userIndex']);
@@ -57,11 +55,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function()
  */
 Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function()
 {
-    // Controllers Within The "App\Http\Controllers\Admin" Namespace
-
-    Route::group(['namespace' => 'User'], function() {
-        // Controllers Within The "App\Http\Controllers\Admin\User" Namespace
-    });
 
 });
 
@@ -75,7 +68,7 @@ Route::get('sitemap', function(){
     $sitemap = App::make("sitemap");
 
     // add items to the sitemap (url, date, priority, freq)
-    $sitemap->add(URL::to('/'), '2012-08-25T20:10:00+02:00', '1.0', 'daily');
+    $sitemap->add(URL::to('/'), Carbon\Carbon::now()->subHours(1), '1.0', 'daily');
 
     $categories = DB::table('categories')->orderBy('created_at', 'desc')->get();
     foreach ($categories as $category)

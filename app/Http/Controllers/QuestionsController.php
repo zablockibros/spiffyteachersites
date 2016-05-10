@@ -10,6 +10,15 @@ use App\Category;
 
 class QuestionsController extends Controller
 {
+    public function home(Request $request)
+    {
+        $questions = Question::paginate(15);
+
+        return view('questions.home', [
+            'questions' => $questions
+        ]);
+    }
+    
     /**
      * Show all questions
      *
