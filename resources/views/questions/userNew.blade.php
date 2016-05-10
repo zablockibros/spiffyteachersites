@@ -22,6 +22,7 @@
                 @endif
                 {!! Form::open(['route' => 'questions.userCreate']) !!}
                 {!! Form::select('category_id', $categories, null, ['placeholder' => 'Category...']) !!}
+                {!! Form::select('difficulty', $difficulties) !!}
                 {!! Form::label('name', 'Question name') !!}
                 {!! Form::text('name') !!}
                 {!! Form::label('question', 'Question') !!}

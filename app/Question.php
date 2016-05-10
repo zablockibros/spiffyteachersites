@@ -8,6 +8,13 @@ use Cviebrock\EloquentSluggable\SluggableTrait;
 
 class Question extends Model implements SluggableInterface
 {
+    const DIFFICULTIES = [
+        'easy' => 'Easy',
+        'medium' => 'Medium',
+        'hard' => 'Hard',
+        'very-hard' => 'Very Hard'
+    ];
+    
     use SluggableTrait;
 
     protected $sluggable = [

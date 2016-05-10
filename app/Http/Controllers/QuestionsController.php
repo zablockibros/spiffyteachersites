@@ -12,7 +12,7 @@ class QuestionsController extends Controller
 {
     public function home(Request $request)
     {
-        $questions = Question::paginate(15);
+        $questions = Question::orderBy('id', 'desc')->paginate(15);
 
         return view('questions.home', [
             'questions' => $questions
@@ -26,7 +26,7 @@ class QuestionsController extends Controller
      */
     public function index()
     {
-        $questions = Question::paginate(15);
+        $questions = Question::orderBy('id', 'desc')->paginate(15);
 
         return view('questions.index', ['questions' => $questions]);
     }
@@ -67,7 +67,8 @@ class QuestionsController extends Controller
         $categories = Category::lists('name', 'id');
 
         return view('questions.userNew', [
-            'categories' => $categories
+            'categories' => $categories,
+            'difficulties' => Question::DIFFICULTIES
         ]);
     }
 
@@ -83,7 +84,8 @@ class QuestionsController extends Controller
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string',
             'question'  => 'required|max:2000',
-            'answer'    => 'required|max:255'
+            'answer'    => 'required|max:255',
+            'difficulty' => 'required|in:easy,medium,hard,very-hard'
         ]);
 
         $request->user()->questions()->create($request->all());
@@ -105,7 +107,8 @@ class QuestionsController extends Controller
 
         return view('questions.userView', [
             'question'  => $question,
-            'categories' => $categories
+            'categories' => $categories,
+            'difficulties' => Question::DIFFICULTIES
         ]);
     }
 
@@ -122,7 +125,8 @@ class QuestionsController extends Controller
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|string',
             'question'  => 'required|max:2000',
-            'answer'    => 'required|max:255'
+            'answer'    => 'required|max:255',
+            'difficulty' => 'required|in:easy,medium,hard,very-hard'
         ]);
 
         $question->fill($request->all())->save();

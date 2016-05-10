@@ -16,7 +16,7 @@ class CategoriesController extends Controller
     public function view($slug = null)
     {
         $category = App\Category::where('slug', '=', $slug)->firstOrFail();
-        $questions = App\Question::where('category_id', '=', $category->id)->paginate(10);
+        $questions = App\Question::where('category_id', '=', $category->id)->orderBy('id', 'desc')->paginate(10);
 
         return view('categories.view', [
             'category'  => $category,
