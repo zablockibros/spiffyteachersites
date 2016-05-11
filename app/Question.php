@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Cviebrock\EloquentSluggable\SluggableInterface;
 use Cviebrock\EloquentSluggable\SluggableTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Cviebrock\EloquentTaggable\Taggable;
 
 class Question extends Model implements SluggableInterface
 {
-    use SoftDeletes;
+    use SoftDeletes, Taggable;
 
     const DIFFICULTIES = [
         'easy' => 'Easy',

@@ -160,6 +160,7 @@ return [
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        \Cviebrock\EloquentTaggable\ServiceProvider::class,
     ],
 
     /*
