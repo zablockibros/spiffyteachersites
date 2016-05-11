@@ -74,7 +74,7 @@ h1, h2, h3, h4, h5, h6 {
 	padding: 0 !important;
 }
 .t-pad-20 { padding-top: 20px; }
-.b-pad-20 { padding-top: 20px; }
+.b-pad-20 { padding-bottom: 20px; }
 
 .hide { display: none; }
 
