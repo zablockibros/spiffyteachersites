@@ -100,7 +100,9 @@ class QuestionsController extends Controller
             'difficulty' => 'required|in:easy,medium,hard,very-hard'
         ]);
 
-        $request->user()->questions()->create($request->all());
+        $question = $request->user()->questions()->create($request->all());
+        $question->tag($request->input('tags'));
+        $question->save();
 
         $request->session()->flash('question-success', 'Question successfully added!');
 
@@ -141,6 +143,7 @@ class QuestionsController extends Controller
             'difficulty' => 'required|in:easy,medium,hard,very-hard'
         ]);
 
+        $question->retag($request->input('useTags', $question->tagList));
         $question->fill($request->all())->save();
 
         $request->session()->flash('question-success', 'question successfully updated!');
@@ -217,7 +220,7 @@ class QuestionsController extends Controller
                         $row['difficulty'] = 'easy';
                     }
 
-                    $data = array_only($row, ['name', 'category_id', 'question', 'answer', 'difficulty']);
+                    $data = array_only($row, ['name', 'category_id', 'question', 'answer', 'difficulty', 'tags']);
 
                     $validator = Validator::make(
                         $data,
@@ -231,6 +234,10 @@ class QuestionsController extends Controller
                     }
 
                     if ($question = Question::create($data)) {
+                        if (!empty($data['tags'])) {
+                            $question->tag($data['tags']);
+                            $question->save();
+                        }
                         $count++;
                         $questions[] = $question;
                     }

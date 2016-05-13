@@ -15,7 +15,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Category</th>
-                            <th>Slug</th>
+                            <th>Tags</th>
                             <th>Question</th>
                             <th>Answer</th>
                             <th>Created</th>
@@ -27,12 +27,16 @@
                         @foreach ($questions as $question)
                             <tr>
                                 <td>{{ $question->name }}</td>
+                                <td>
                                 @if($question->category)
-                                    <td>{{ $question->category->name }}</td>
+                                    {{ $question->category->name }}
                                 @else
-                                    <td><em>None</em></td>
+                                    <em>None</em>
                                 @endif
-                                <td>{{ $question->slug }}</td>
+                                </td>
+                                <td>
+                                    {{ $question->tagList }}
+                                </td>
                                 <td>{{ $question->question }}</td>
                                 <td>{{ $question->answer }}</td>
                                 <td>{{ $question->created_at }}</td>

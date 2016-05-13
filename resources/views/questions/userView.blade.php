@@ -23,6 +23,8 @@
                 {!! Form::model($question, array('route' => ['questions.userUpdate', $question->id])) !!}
                 {!! Form::select('category_id', $categories, null, ['placeholder' => 'Category...']) !!}
                 {!! Form::select('difficulty', $difficulties) !!}
+                {!! Form::label('tags', 'Current tags: '.$question->tagList ) !!}
+                {!! Form::text('useTags', $question->tagList) !!}
                 {!! Form::label('name', 'Question name') !!}
                 {!! Form::text('name') !!}
                 {!! Form::label('question', 'Question') !!}
