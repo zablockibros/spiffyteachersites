@@ -29,6 +29,8 @@
                 {!! Form::text('name') !!}
                 {!! Form::label('question', 'Question') !!}
                 {!! Form::textarea('question') !!}
+                {!! Form::label('choices', 'Choices (separate with a | )') !!}
+                {!! Form::text('choices') !!}
                 {!! Form::label('answer', 'Answer') !!}
                 {!! Form::textarea('answer') !!}
                 {!! Form::submit('Create') !!}

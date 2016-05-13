@@ -97,9 +97,16 @@ class QuestionsController extends Controller
             'name' => 'required|string',
             'question'  => 'required|max:2000',
             'answer'    => 'required|max:255',
-            'difficulty' => 'required|in:easy,medium,hard,very-hard'
+            'difficulty' => 'required|in:easy,medium,hard,very-hard',
+            'choices' => 'string'
         ]);
 
+        if (!empty($request->input('choices'))) {
+            $choices = explode('|', $request->input(('choices')));
+            $request->merge([
+                'choices' => serialize($choices)
+            ]);
+        }
         $question = $request->user()->questions()->create($request->all());
         $question->tag($request->input('tags'));
         $question->save();
@@ -140,9 +147,16 @@ class QuestionsController extends Controller
             'name' => 'required|string',
             'question'  => 'required|max:2000',
             'answer'    => 'required|max:255',
-            'difficulty' => 'required|in:easy,medium,hard,very-hard'
+            'difficulty' => 'required|in:easy,medium,hard,very-hard',
+            'choices' => 'string'
         ]);
 
+        if (!empty($request->input('choices'))) {
+            $choices = explode('|', $request->input(('choices')));
+            $request->merge([
+                'choices' => serialize($choices)
+            ]);
+        }
         $question->retag($request->input('useTags', $question->tagList));
         $question->fill($request->all())->save();
 
