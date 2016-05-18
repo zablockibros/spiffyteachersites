@@ -15,7 +15,7 @@ Route::get('/', 'QuestionsController@home');
 
 Route::get('for/{slug}', ['as' => 'category', 'uses' => 'CategoriesController@view']);
 
-Route::get('question/{slug}', 'QuestionsController@view');
+Route::get('question/{slug}', ['as' => 'question', 'uses' => 'QuestionsController@view']);
 
 /**
  * Logged in routes
