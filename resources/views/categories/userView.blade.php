@@ -21,6 +21,7 @@
                 </div>
                 @endif
                 {!! Form::model($category, array('route' => ['categories.userUpdate', $category->id])) !!}
+                {!! Form::select('parent_id', $categories, null, ['placeholder' => 'Category...']) !!}
                 {!! Form::label('name', 'Category name') !!}
                 {!! Form::text('name') !!}
                 {!! Form::label('description', 'Description') !!}

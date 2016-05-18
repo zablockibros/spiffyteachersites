@@ -21,6 +21,7 @@
                 </div>
                 @endif
                 {!! Form::open(array('route' => 'categories.userCreate')) !!}
+                {!! Form::select('parent_id', $categories, null, ['placeholder' => 'Category...']) !!}
                 {!! Form::label('name', 'Category name') !!}
                 {!! Form::text('name') !!}
                 {!! Form::label('description', 'Description') !!}

@@ -16,7 +16,12 @@ class CategoriesController extends Controller
     public function view($slug = null)
     {
         $category = App\Category::where('slug', '=', $slug)->firstOrFail();
-        $questions = App\Question::where('category_id', '=', $category->id)->orderBy('id', 'desc')->paginate(7);
+        $categories = App\Category::where('id', '=', $category->id)
+            ->orWhere('parent_id', '=', $category->id)
+            ->lists('id');
+        $questions = App\Question::whereIn('category_id', $categories)
+            ->orderBy('id', 'desc')
+            ->paginate(7);
         $categories = App\Category::all();
 
         return view('categories.view', [
@@ -45,7 +50,9 @@ class CategoriesController extends Controller
      */
     public function userNew(Request $request)
     {
-        return view('categories.userNew', []);
+        return view('categories.userNew', [
+            'categories' => App\Category::lists('name', 'id')
+        ]);
     }
 
     /**
@@ -76,7 +83,8 @@ class CategoriesController extends Controller
         $category = App\Category::findOrFail($id);
 
         return view('categories.userView', [
-            'category'  => $category
+            'category'  => $category,
+            'categories' => App\Category::lists('name', 'id')
         ]);
     }
 

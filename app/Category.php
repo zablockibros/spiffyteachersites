@@ -18,7 +18,7 @@ class Category extends Model implements SluggableInterface
         'save_to'    => 'slug',
     ];
 
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'description', 'parent_id'];
 
     /**
      * Get the questions
@@ -26,5 +26,10 @@ class Category extends Model implements SluggableInterface
     public function questions()
     {
         return $this->hasMany('App\Question');
+    }
+
+    public function parent()
+    {
+        return $this->belongsTo('App\Category', 'parent_id');
     }
 }
