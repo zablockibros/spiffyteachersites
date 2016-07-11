@@ -15,12 +15,19 @@ class QuestionsController extends Controller
     public function home(Request $request)
     {
         $questions = Question::orderBy('id', 'desc')->paginate(7);
+        $randomQuestion = Question::all()->random(1);
         $categories = Category::all();
 
         return view('questions.home', [
             'questions' => $questions,
-            'categories' => $categories
+            'categories' => $categories,
+            'randomQuestion' => $randomQuestion
         ]);
+    }
+    
+    public function random()
+    {
+        return redirect('/');
     }
     
     /**
@@ -197,7 +204,7 @@ class QuestionsController extends Controller
      */
     public function userExcelUpload(Request $request)
     {
-        if ($request->hasFile('file')) {
+        if ($request->hasFile('notfile')) {
             $file = $request->file('file');
 
             Excel::load($file, function($reader) {
@@ -262,7 +269,124 @@ class QuestionsController extends Controller
             });
         }
 
-        return view('questions.userExcel', [
-        ]);
+        elseif ($request->hasFile('file')) {
+            $file = $request->file('file');
+
+            $zipcodes = [];
+            $result = [];
+
+            Excel::load($file, function($reader) {
+                $data = $reader->toArray();
+
+                // foreach $data row, if no previous geocode $zipcodes entry, geocode for zip -> save results in $row and $zipcodes
+                foreach ($data as $row) {
+                    if (empty($zipcodes[$row['home_zip']])) {
+                        $locationData = $this->geocode($row['home_zip']);
+                        //sleep(1);
+                        usleep(200000); // 0.2 seconds
+                        $zipcodes[$row['home_zip']] = $locationData;
+                    } else {
+                        $locationData = $zipcodes[$row['home_zip']];
+                    }
+
+                    $result[] = [
+                        'home_latitude' => $locationData['latitude'],
+                        'home_longitude' => $locationData['longitude'],
+                        'home_street1' => $locationData['street1'],
+                        'home_city' => $locationData['city'],
+                        'home_state' => $locationData['state'],
+                        'home_zip' => $row['home_zip']
+                    ];
+                }
+
+                //var_dump($result);
+                //die();
+
+                Excel::create('AirBnbData', function($excel) use ($result) {
+
+                    $excel->sheet('Addresses', function($sheet) use ($result) {
+
+                        $sheet->fromArray($result);
+
+                    });
+
+                })->export('xls');
+
+                var_dump([
+                    'message' => 'done'
+                ]);
+                die();
+            });
+        }
+
+        //return view('questions.userExcel', [
+        //]);
+    }
+
+    private function geocode($string = '')
+    {
+        //var_dump($string);
+
+        if (!$string) {
+            return array(
+                'latitude' => '',
+                'longitude' => '',
+                'street1' => '',
+                'city' => '',
+                'state' => '',
+                'zip' => ''
+            );
+        }
+
+        $string = str_replace (" ", "+", urlencode($string));
+        $details_url = "http://maps.googleapis.com/maps/api/geocode/json?address=".$string."&sensor=false";
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $details_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $response = json_decode(curl_exec($ch), true);
+
+        // If Status Code is ZERO_RESULTS, OVER_QUERY_LIMIT, REQUEST_DENIED or INVALID_REQUEST
+        if ($response['status'] != 'OK') {
+            var_dump([
+                'response' => $response
+            ]);
+            //die();
+        }
+
+        $geometry = $response['results'][0]['geometry'];
+        $place = $response['results'][0];
+        $address = $place['address_components'];
+
+        //echo '<pre>';
+        //print_r($place);
+        //echo '</pre>';
+        //die();
+
+        $longitude = $geometry['location']['lat'];
+        $latitude = $geometry['location']['lng'];
+
+        foreach ($address as $component) {
+            if (in_array('postal_code', $component['types'])) {
+                $zip = $component['short_name'];
+            }
+            if (in_array('administrative_area_level_1', $component['types'])) {
+                $state = $component['short_name'];
+            }
+            if (in_array('locality', $component['types'])) {
+                $city = $component['long_name'];
+            }
+        }
+
+        $array = array(
+            'latitude' => $latitude,
+            'longitude' => $longitude,
+            'street1' => '',
+            'city' => $city,
+            'state' => $state,
+            'zip' => $zip
+        );
+
+        return $array;
     }
 }

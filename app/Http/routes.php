@@ -15,6 +15,8 @@ Route::get('/', 'QuestionsController@home');
 
 Route::get('for/{slug}', ['as' => 'category', 'uses' => 'CategoriesController@view']);
 
+Route::get('question/random', ['as' => 'question', 'uses' => 'QuestionsController@random']);
+
 Route::get('question/{slug}', ['as' => 'question', 'uses' => 'QuestionsController@view']);
 
 /**
