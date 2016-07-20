@@ -15,13 +15,17 @@ class QuestionsController extends Controller
     public function home(Request $request)
     {
         $questions = Question::orderBy('id', 'desc')->paginate(7);
-        $randomQuestion = Question::all()->random(1);
+        $allQuestions = Question::all();
+        $randomQuestion = null;
+        if ($allQuestions->count() > 0) {
+            $randomQuestion = Question::all()->random(1);
+        }
         $categories = Category::all();
 
         return view('questions.home', [
             'questions' => $questions,
             'categories' => $categories,
-            'randomQuestion' => $randomQuestion
+            'randomQuestion' => $randomQuestion ?: null
         ]);
     }
     
