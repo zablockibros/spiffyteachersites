@@ -26,7 +26,7 @@ class CategoriesController extends Controller
 
         return view('categories.view', [
             'category'  => $category,
-            'questions' => $questions,
+            'blogs' => $questions,
             'categories' => $categories
         ]);
     }
