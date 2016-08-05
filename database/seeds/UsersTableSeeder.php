@@ -15,7 +15,15 @@ class UsersTableSeeder extends Seeder
             'name' => 'Justin Zablocki',
             'email' => 'zablockijj@gmail.com',
             'type' => 'admin',
-            'password' => bcrypt('harvard1'),
+            'is_admin' => true,
+            'password' => bcrypt('MaBb17!!'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Victoria Zablocki',
+            'email' => 'zablockivl@gmail.com',
+            'type' => 'admin',
+            'is_admin' => true,
+            'password' => bcrypt('MaBb17!!'),
         ]);
     }
 }

@@ -27,12 +27,4 @@ class User extends Authenticatable
     protected $casts = [
         'is_admin' => 'boolean',
     ];
-
-    /**
-     * Get the questions
-     */
-    public function questions()
-    {
-        return $this->hasMany('App\Question');
-    }
 }

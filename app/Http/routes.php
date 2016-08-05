@@ -11,13 +11,9 @@
 |
 */
 
-Route::get('/', 'QuestionsController@home');
+Route::get('/', 'HomeController@index');
 
 Route::get('for/{slug}', ['as' => 'category', 'uses' => 'CategoriesController@view']);
-
-Route::get('question/random', ['as' => 'question', 'uses' => 'QuestionsController@random']);
-
-Route::get('question/{slug}', ['as' => 'question', 'uses' => 'QuestionsController@view']);
 
 /**
  * Logged in routes
@@ -38,6 +34,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'user'], function()
     Route::delete('categories/delete/{id}', ['as' => 'categories.userDelete', 'uses' => 'CategoriesController@userDelete']);
 
     // Questions
+    /*
     Route::get('questions', ['as' => 'questions.userIndex', 'uses' => 'QuestionsController@userIndex']);
 
     Route::get('questions/new', ['as' => 'questions.userNew', 'uses' => 'QuestionsController@userNew']);
@@ -54,6 +51,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'user'], function()
     Route::get('questions/excel', ['as' => 'questions.userExcel', 'uses' => 'QuestionsController@userExcel']);
 
     Route::post('questions/excel/upload', ['as' => 'questions.userExcelUpload', 'uses' => 'QuestionsController@userExcelUpload']);
+    */
 
 });
 

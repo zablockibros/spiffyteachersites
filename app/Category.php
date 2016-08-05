@@ -19,15 +19,7 @@ class Category extends Model implements SluggableInterface
     ];
 
     protected $fillable = ['name', 'description', 'parent_id'];
-
-    /**
-     * Get the questions
-     */
-    public function questions()
-    {
-        return $this->hasMany('App\Question');
-    }
-
+    
     public function parent()
     {
         return $this->belongsTo('App\Category', 'parent_id');
