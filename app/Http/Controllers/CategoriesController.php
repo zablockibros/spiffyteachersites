@@ -13,6 +13,23 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function home()
+    {
+        $websites = App\Website::orderBy('vote_count', 'desc')
+            ->paginate(10);
+        $categories = App\Category::all();
+
+        return view('categories.home', [
+            'websites' => $websites,
+            'categories' => $categories
+        ]);
+    }
+
+    /**
+     * List trivia by category
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function view($slug = null)
     {
         $category = App\Category::where('slug', '=', $slug)->firstOrFail();
@@ -21,7 +38,7 @@ class CategoriesController extends Controller
             ->lists('id');
         $questions = App\Question::whereIn('category_id', $categories)
             ->orderBy('id', 'desc')
-            ->paginate(7);
+            ->paginate(10);
         $categories = App\Category::all();
 
         return view('categories.view', [
