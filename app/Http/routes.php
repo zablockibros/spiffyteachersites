@@ -15,23 +15,57 @@ Route::get('/', 'CategoriesController@home');
 
 Route::get('for/{slug}', ['as' => 'category', 'uses' => 'CategoriesController@view']);
 
+Route::get('site/{slug}', ['as' => 'site', 'uses' => 'WebsitesController@view']);
+
+Route::post('site/{id}/vote', ['as' => 'site.vote', 'uses' => 'WebsitesController@vote']);
+
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function() {
+
+    Route::get('sites', ['as' => 'sites.userIndex', 'uses' => 'WebsitesController@userIndex']);
+
+    Route::get('sites/new', ['as' => 'sites.userNew', 'uses' => 'WebsitesController@userNew']);
+
+    Route::post('sites', ['as' => 'sites.userCreate', 'uses' => 'WebsitesController@userCreate']);
+
+    Route::get('sites/{id}', ['as' => 'sites.userView', 'uses' => 'WebsitesController@userView']);
+
+    Route::post('sites/{id}/edit', ['as' => 'sites.userEdit', 'uses' => 'WebsitesController@userEdit']);
+
+    Route::delete('sites/{id}/delete', ['as' => 'sites.userDelete', 'uses' => 'WebsitesController@userDelete']);
+
+});
+
 /**
- * Logged in routes
+ * Admin in routes
  */
-Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'user'], function()
+Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function()
 {
     // Categories
-    Route::get('categories', ['as' => 'categories.userIndex', 'uses' => 'CategoriesController@userIndex']);
+    Route::get('categories', ['as' => 'categories.adminIndex', 'uses' => 'CategoriesController@adminIndex']);
 
-    Route::get('categories/new', ['as' => 'categories.userNew', 'uses' => 'CategoriesController@userNew']);
+    Route::get('categories/new', ['as' => 'categories.adminNew', 'uses' => 'CategoriesController@adminNew']);
 
-    Route::post('categories', ['as' => 'categories.userCreate', 'uses' => 'CategoriesController@userCreate']);
+    Route::post('categories', ['as' => 'categories.adminCreate', 'uses' => 'CategoriesController@adminCreate']);
 
-    Route::get('categories/view/{id}', ['as' => 'categories.userView', 'uses' => 'CategoriesController@userView']);
+    Route::get('categories/view/{id}', ['as' => 'categories.adminView', 'uses' => 'CategoriesController@adminView']);
 
-    Route::post('categories/update/{id}', ['as' => 'categories.userUpdate', 'uses' => 'CategoriesController@userUpdate']);
+    Route::post('categories/update/{id}', ['as' => 'categories.adminUpdate', 'uses' => 'CategoriesController@adminUpdate']);
 
-    Route::delete('categories/delete/{id}', ['as' => 'categories.userDelete', 'uses' => 'CategoriesController@userDelete']);
+    Route::delete('categories/delete/{id}', ['as' => 'categories.adminDelete', 'uses' => 'CategoriesController@adminDelete']);
+
+    // Sites
+    Route::get('sites', ['as' => 'sites.adminIndex', 'uses' => 'WebsitesController@adminIndex']);
+
+    Route::get('sites/new', ['as' => 'sites.adminNew', 'uses' => 'WebsitesController@adminNew']);
+
+    Route::post('sites', ['as' => 'sites.adminCreate', 'uses' => 'WebsitesController@adminCreate']);
+
+    Route::get('sites/view/{id}', ['as' => 'sites.adminView', 'uses' => 'WebsitesController@adminView']);
+
+    Route::post('sites/update/{id}', ['as' => 'sites.adminUpdate', 'uses' => 'WebsitesController@adminUpdate']);
+
+    Route::delete('sites/delete/{id}', ['as' => 'sites.adminDelete', 'uses' => 'WebsitesController@adminDelete']);
 
     // Questions
     /*
@@ -52,14 +86,6 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'user'], function()
 
     Route::post('questions/excel/upload', ['as' => 'questions.userExcelUpload', 'uses' => 'QuestionsController@userExcelUpload']);
     */
-
-});
-
-/**
- * Admin routes
- */
-Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function()
-{
 
 });
 
@@ -92,4 +118,5 @@ Route::get('sitemap', function(){
     // this will generate file sitemap.xml to your public folder
 
     return $sitemap->render('xml');
+
 });

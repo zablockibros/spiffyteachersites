@@ -17,6 +17,12 @@
             <h5 class="text-center fw-bold">Join our Spiffy Network</h5>
             <form method="POST" action="{{ url('/register') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <input class="text-box form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Your Name">
+                @if ($errors->has('name'))
+                    <span class="help-block">
+                            <strong>{{ $errors->first('name') }}</strong>
+                        </span>
+                @endif
                 <input class="text-box form-control" type="email" name="email" value="{{ old('email') }}" placeholder="Your Email">
                 @if ($errors->has('email'))
                     <span class="help-block">

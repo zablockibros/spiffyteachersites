@@ -3,7 +3,9 @@
 
     <!-- header -->
     <div class="unicard-header bd-b">
-        @if (!empty($category))
+        @if (!empty($listingTitle))
+            <h4 class="fw-bold case-u unicard-title">{{ $listingTitle }}</h4>
+        @elseif (!empty($category))
             <h4 class="fw-bold case-u unicard-title">Category: <span class="fg-primary">{{ $category->name }}</span></h4>
             <!--<div class="fg-text-l unicard-subtitle">Found 54 results for term <strong>"Kanye West"</strong></div>-->
         @else
@@ -17,7 +19,13 @@
 
         <!-- post list -->
         <ul class="unimedia-list post-list">
-            @each('partials.websiteItem', $websites, 'website', 'partials.emptyWebsiteItem')
+            @if (!empty($websites->total()))
+                @foreach($websites as $website)
+                    @include('partials.websiteItem', $website)
+                @endforeach
+            @else
+                No websites were found for this category.
+            @endif
         </ul>
         <!-- /post list -->
 

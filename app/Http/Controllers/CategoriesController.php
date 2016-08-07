@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use App\Category;
+use App\Website;
 use App\Http\Requests;
 
 class CategoriesController extends Controller
@@ -15,9 +17,9 @@ class CategoriesController extends Controller
      */
     public function home()
     {
-        $websites = App\Website::orderBy('vote_count', 'desc')
+        $websites = Website::orderBy('vote_count', 'desc')
             ->paginate(10);
-        $categories = App\Category::all();
+        $categories = Category::all();
 
         return view('categories.home', [
             'websites' => $websites,
@@ -32,18 +34,18 @@ class CategoriesController extends Controller
      */
     public function view($slug = null)
     {
-        $category = App\Category::where('slug', '=', $slug)->firstOrFail();
-        $categories = App\Category::where('id', '=', $category->id)
+        $category = Category::where('slug', '=', $slug)->firstOrFail();
+        $categories = Category::where('id', '=', $category->id)
             ->orWhere('parent_id', '=', $category->id)
             ->lists('id');
-        $questions = App\Question::whereIn('category_id', $categories)
+        $websites = Website::whereIn('category_id', $categories)
             ->orderBy('id', 'desc')
             ->paginate(10);
-        $categories = App\Category::all();
+        $categories = Category::all();
 
         return view('categories.view', [
             'category'  => $category,
-            'blogs' => $questions,
+            'websites' => $websites,
             'categories' => $categories
         ]);
     }
@@ -54,7 +56,7 @@ class CategoriesController extends Controller
      */
     public function userIndex(Request $request)
     {
-        $categories = App\Category::all();
+        $categories = Category::all();
 
         return view('categories.userIndex', [
             'categories'  => $categories
@@ -68,7 +70,7 @@ class CategoriesController extends Controller
     public function userNew(Request $request)
     {
         return view('categories.userNew', [
-            'categories' => App\Category::lists('name', 'id')
+            'categories' => Category::lists('name', 'id')
         ]);
     }
 
@@ -83,7 +85,7 @@ class CategoriesController extends Controller
             'description' => 'string'
         ]);
 
-        $category = App\Category::create($request->all());
+        $category = Category::create($request->all());
 
         $request->session()->flash('category-success', 'Category successfully added!');
 
@@ -97,11 +99,11 @@ class CategoriesController extends Controller
      */
     public function userView(Request $request, $id)
     {
-        $category = App\Category::findOrFail($id);
+        $category = Category::findOrFail($id);
 
         return view('categories.userView', [
             'category'  => $category,
-            'categories' => App\Category::lists('name', 'id')
+            'categories' => Category::lists('name', 'id')
         ]);
     }
 
@@ -112,7 +114,7 @@ class CategoriesController extends Controller
      */
     public function userUpdate(Request $request, $id)
     {
-        $category = App\Category::findOrFail($id);
+        $category = Category::findOrFail($id);
 
         $this->validate($request, [
             'name' => 'required|string',
@@ -133,7 +135,7 @@ class CategoriesController extends Controller
      */
     public function userDelete(Request $request, $id)
     {
-        $category = App\Category::findOrFail($id);
+        $category = Category::findOrFail($id);
 
         $category->delete();
 

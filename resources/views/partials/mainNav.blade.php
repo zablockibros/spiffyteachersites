@@ -51,35 +51,25 @@
                     <!-- uninav -->
                     <ul class="uninav unibar-uninav uninav-fga-primary uninav-fillh auto-invert case-u fw-bold">
                         <li><a href="{{ url('/') }}">home</a></li>
+                        <li class="dropdown active"><a href="#" data-toggle="dropdown">Categories<i class="fs-80 ti-plus dd-icon open-rotz-135"></i></a>
+                            <ul class="dropdown-menu dropdown-right case-c">
+                                @foreach($categories as $category)
+                                    <li><a href="{{ route('category', $category->slug) }}">{{ $category->name }}</a></li>
+                                @endforeach
+                            </ul>
+                        </li>
                         @if (Auth::guest())
                             <li><a href="{{ url('/register') }}">Submit Your Blog</a></li>
                             <li><a href="{{ url('/login') }}">Login</a></li>
                         @else
-                            <li class="dropdown">
-                                <a href="#">
-                                    {{ Auth::user()->name }} <span class="caret"></span>
-                                </a>
-
-                                <ul class="menu vertical">
-                                    <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                            <li class="dropdown"><a href="#" data-toggle="dropdown">{{ Auth::user()->name }} <i class="fs-80 ti-plus dd-icon open-rotz-135"></i></a>
+                                <ul class="dropdown-menu dropdown-right case-c">
+                                    <li><a href="{{ route('sites.userIndex') }}">My Sites</a></li>
+                                    <li><a href="{{ route('sites.userNew') }}">+ Submit Site</a></li>
+                                    <li><a href="{{ url('/logout') }}">Logout</a></li>
                                 </ul>
                             </li>
                         @endif
-                        <li class="dropdown active"><a href="#" data-toggle="dropdown">pages<i class="fs-80 ti-plus dd-icon open-rotz-135"></i></a>
-                            <ul class="dropdown-menu dropdown-right case-c">
-                                <li><a href="index.html">Home Version 1</a></li>
-                                <li><a href="index-2.html">Home Version 2</a></li>
-                                <li><a href="post.html">Post View</a></li>
-                                <li class="active"><a href="search.html">Search Results</a></li>
-                                <li class="divider"></li>
-                                <li><a href="login.html">Sign In page</a></li>
-                                <li><a href="register.html">Sign Up page</a></li>
-                                <li><a href="error.html">404 Page</a></li>
-                                <li class="divider"></li>
-                                <li><a href="colors.html">Color Guide</a></li>
-                                <li><a href="features.html">Selected Features</a></li>
-                            </ul>
-                        </li>
                     </ul>
                     <!-- /uninav -->
                 </div>
