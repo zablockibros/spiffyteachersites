@@ -17,13 +17,11 @@ class CategoriesController extends Controller
      */
     public function home()
     {
-        $websites = Website::orderBy('vote_count', 'desc')
+        $websites = Website::orderBy('rank', 'asc')
             ->paginate(10);
-        $categories = Category::all();
 
         return view('categories.home', [
             'websites' => $websites,
-            'categories' => $categories
         ]);
     }
 
@@ -35,18 +33,13 @@ class CategoriesController extends Controller
     public function view($slug = null)
     {
         $category = Category::where('slug', '=', $slug)->firstOrFail();
-        $categories = Category::where('id', '=', $category->id)
-            ->orWhere('parent_id', '=', $category->id)
-            ->lists('id');
-        $websites = Website::whereIn('category_id', $categories)
-            ->orderBy('id', 'desc')
+        $websites = $category->websites()
+            ->orderBy('pivot_rank', 'desc')
             ->paginate(10);
-        $categories = Category::all();
 
         return view('categories.view', [
             'category'  => $category,
             'websites' => $websites,
-            'categories' => $categories
         ]);
     }
 

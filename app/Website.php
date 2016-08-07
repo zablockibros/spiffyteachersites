@@ -20,8 +20,38 @@ class Website extends Model implements SluggableInterface
 
     protected $guarded = [];
 
-    public function parent()
+    public function user()
     {
         return $this->belongsTo('App\User', 'user_id');
+    }
+    
+    public function categories()
+    {
+        return $this->belongsToMany('App\Category')->withPivot('rank', 'type');
+    }
+    
+    public function votes()
+    {
+        return $this->hasMany('App\Vote');
+    }
+
+    public function getVoteCount()
+    {
+        return Vote::where(['website_id' => $this->id, 'type' => 'vote'])->count();
+    }
+    
+    public function getVoteCountAttribute()
+    {
+        return $this->getVoteCount();
+    }
+
+    public function getViewCount()
+    {
+        return Vote::where(['website_id' => $this->id, 'type' => 'view'])->count();
+    }
+
+    public function getViewCountAttribute()
+    {
+        return $this->getViewCount();
     }
 }

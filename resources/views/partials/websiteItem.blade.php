@@ -6,13 +6,20 @@
         </div>
     </div>
     <div class="unimedia-cell cell-max">
-        <h3 class="text-muted">Ranked #1</h3>
-        <h4 class="unimedia-title"><a href="post.html">Naturally Teaching</a></h4>
+        <h5 class="text-muted" style="margin-bottom:0;">Ranked #{{ $website->rank }} Overall</h5>
+        <h4 class="unimedia-title"><a href="{{ route('sites.userView', ['id' => $website->id]) }}">{{ $website->name }}</a></h4>
         <div class="unimeta post-meta hidden-xs">
-            <span><i class="ti-time fg-text-l"></i>16 votes</span>
-            <span><i class="ti-comment-alt fg-text-l"></i>16 views</span>
+            <span><i class="ti-time fg-text-l"></i>{{ $website->voteCount }} votes</span>
+            <span><i class="ti-comment-alt fg-text-l"></i>{{ $website->viewCount }} views</span>
         </div>
-        <h5 class="unimedia-subtitle fg-accent hidden-xs"><a href="#">category</a>, <a href="#">category</a>, <a href="#">category</a></h5>
+        <h5 class="unimedia-subtitle fg-accent hidden-xs">
+            @foreach($website->categories as $key => $category)
+                @if ($key > 0)
+                    <span>, </span>
+                @endif
+                <a href="{{ route('category', ['slug' => $category->slug]) }}">(Ranked #{{ $category->pivot->rank }}) {{ $category->name }}</a>
+            @endforeach
+        </h5>
     </div>
     <!-- /unimedia -->
 </li>

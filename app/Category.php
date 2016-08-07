@@ -24,4 +24,9 @@ class Category extends Model implements SluggableInterface
     {
         return $this->belongsTo('App\Category', 'parent_id');
     }
+
+    public function websites()
+    {
+        return $this->belongsToMany('App\Website')->withPivot('rank', 'type');
+    }
 }

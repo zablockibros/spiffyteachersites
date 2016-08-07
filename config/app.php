@@ -155,6 +155,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\WebsitesServiceProvider::class,
 
         Roumen\Sitemap\SitemapServiceProvider::class,
         Cviebrock\EloquentSluggable\SluggableServiceProvider::class,
@@ -211,7 +212,8 @@ return [
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Cloudder' => JD\Cloudder\Facades\Cloudder::class
+        'Cloudder' => JD\Cloudder\Facades\Cloudder::class,
+        'Websites' => App\Facades\Websites::class,
     ],
 
 ];

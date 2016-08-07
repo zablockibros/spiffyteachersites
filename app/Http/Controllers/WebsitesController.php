@@ -7,17 +7,16 @@ use App\Http\Requests;
 use App\Website;
 use App\Category;
 use Validator;
+use Websites;
 
 class WebsitesController extends Controller
 {
     public function view(Request $request, $slug)
     {
         $website = Website::where('slug', $slug)->firstOrFail();
-        $categories = Category::all();
 
         return view('websites.view', [
-            'website' => $website,
-            'categories' => $categories
+            'website' => $website
         ]);
     }
 
@@ -36,11 +35,9 @@ class WebsitesController extends Controller
     public function userIndex(Request $request)
     {
         $websites = Website::where('user_id', $request->user()->id)->paginate(10);
-        $categories = Category::all();
 
         return view('websites.userIndex', [
-            'websites' => $websites,
-            'categories' => $categories
+            'websites' => $websites
         ]);
     }
 
@@ -48,8 +45,18 @@ class WebsitesController extends Controller
     {
         $categories = Category::all();
 
+        $keys = array_map(function($category) {
+            return $category->id;
+        }, $categories->all());
+
+        $names = array_map(function($category) {
+            return $category->name;
+        }, $categories->all());
+
+        $selectCategories = array_combine($keys, $names);
+
         return view('websites.userNew', [
-            'categories' => $categories
+            'selectCategories' => $selectCategories
         ]);
     }
     
@@ -73,26 +80,32 @@ class WebsitesController extends Controller
         $data = $request->only(['domain','name','description']);
         $data['user_id'] = $request->user()->id;
 
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
-        die();
+        //echo '<pre>';
+        //print_r($request->all());
+        //echo '</pre>';
+        //die();
 
         $website = Website::create($data);
 
         // do some cool shit with the info
+        if ($request->input('category')) {
+            $website->categories()->attach($request->input('category'));
+        }
+
+        Websites::calculateRanksForCategory(null);
+        if ($request->input('category')) {
+            Websites::calculateRanksForCategory(Category::find($request->input('category')));
+        }
 
         return redirect(route('sites.userView', ['id' => $website->id]));
     }
 
     public function userView(Request $request, $id)
     {
-        $website = Website::findOrFail($id);
-        $categories = Category::all();
+        $website = Website::where(['id' => $id, 'user_id' => $request->user()->id])->firstOrFail();
 
         return view('websites.userView', [
-            'website' => $website,
-            'categories' => $categories
+            'website' => $website
         ]);
     }
 

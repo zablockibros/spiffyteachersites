@@ -20,7 +20,7 @@
     <![endif]-->
 </head>
 <body>
-    @include('partials.mainNav')
+    @include('partials.mainNav', ['categories' => $categories])
 
     <!-- Content -->
     <section class="content pad-lg bg-black-3"">

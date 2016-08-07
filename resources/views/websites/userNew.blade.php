@@ -19,6 +19,7 @@
                     </span>
                     @endif
                 </div>
+                {!! Form::select('category', $selectCategories, old('category'), ['class' => 'text-box form-control', 'placeholder' => 'Category...']) !!}
                 <input class="text-box form-control" type="text" name="name" value="{{ old('name') }}" placeholder="Website Name" />
                 @if ($errors->has('name'))
                     <span class="help-block">
