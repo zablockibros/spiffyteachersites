@@ -2,12 +2,14 @@
     <!-- unimedia -->
     <div class="unimedia-cell">
         <div class="unimedia-img">
-            <a href="post.html" class="img-link"><img src="images/story2.jpg" alt="" /></a>
+            <a href="post.html" class="img-link">
+                <img src="images/story2.jpg" alt="" style="width:200px;" />
+            </a>
         </div>
     </div>
     <div class="unimedia-cell cell-max">
         <h5 class="text-muted" style="margin-bottom:0;">Ranked #{{ $website->rank }} Overall</h5>
-        <h4 class="unimedia-title"><a href="{{ route('sites.userView', ['id' => $website->id]) }}">{{ $website->name }}</a></h4>
+        <h4 class="unimedia-title"><a href="{{ route('site', ['slug' => $website->slug]) }}">{{ $website->name }}</a></h4>
         <div class="unimeta post-meta hidden-xs">
             <span><i class="ti-time fg-text-l"></i>{{ $website->voteCount }} votes</span>
             <span><i class="ti-comment-alt fg-text-l"></i>{{ $website->viewCount }} views</span>

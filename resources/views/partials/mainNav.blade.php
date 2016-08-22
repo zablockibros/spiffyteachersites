@@ -5,12 +5,14 @@
         <!-- header block -->
         <div class="unibar-block header-block bg-primary hide-border">
             <!-- brand cell -->
+            <?php /*
             <div class="unibar-cell menucon-cell">
                 <a href="#" class="menucon morphs" data-ctoggle="unhide" data-target="#fullmenu"><span></span></a>
             </div>
+            */ ?>
             <!-- /brand cell -->
             <!-- brand cell -->
-            <div class="unibar-cell brand-cell">
+            <div class="unibar-cell brand-cell" style="padding-left:15px;">
                 <a href="{{ url('/') }}" class="unibar-brand fw-bold">SpiffyTeacherSites</a>
             </div>
             <!-- /brand cell -->
@@ -39,8 +41,8 @@
                 <div class="visible-sm visible-xs">
                     <!-- uninav -->
                     <ul class="uninav unibar-uninav uninav-fga-primary uninav-fillh auto-invert case-u fw-bold text-center">
-                        <li class="active"><a href="index.html">home</a></li>
-                        <li><a href="#">latest</a></li>
+                        <li class="active"><a href="{{ url('/') }}">home</a></li>
+                        <?php /*<li><a href="#">latest</a></li>*/ ?>
                         <li><a href="#" data-ctoggle="unhide" data-target="#menu-col1">more<i class="fs-80 ti-plus dd-icon toggled-rotz-135"></i></a>
                     </ul>
                     <!-- /uninav -->

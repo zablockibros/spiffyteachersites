@@ -15,6 +15,12 @@ class WebsitesController extends Controller
     {
         $website = Website::where('slug', $slug)->firstOrFail();
 
+        if (!empty($request->user()->id)) {
+            if ($website->user_id == $request->user()->id) {
+                //return redirect(route('sites.userView', ['id' => $website->id]));
+            }
+        }
+
         return view('websites.view', [
             'website' => $website
         ]);
@@ -104,8 +110,21 @@ class WebsitesController extends Controller
     {
         $website = Website::where(['id' => $id, 'user_id' => $request->user()->id])->firstOrFail();
 
+        $categories = Category::all();
+
+        $keys = array_map(function($category) {
+            return $category->id;
+        }, $categories->all());
+
+        $names = array_map(function($category) {
+            return $category->name;
+        }, $categories->all());
+
+        $selectCategories = array_combine($keys, $names);
+
         return view('websites.userView', [
-            'website' => $website
+            'website' => $website,
+            'selectCategories' => $selectCategories
         ]);
     }
 
