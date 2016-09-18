@@ -72,7 +72,7 @@ class WebsitesController extends Controller
             'domain' => [
                 'required',
                 'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
-                'unique'
+                'unique:websites,domain'
             ],
             'name' => 'required|min:2|max:140',
             'description' => 'required|max:2000',
