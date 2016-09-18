@@ -2,8 +2,16 @@
     <!-- unimedia -->
     <div class="unimedia-cell">
         <div class="unimedia-img">
-            <a href="post.html" class="img-link">
-                <img src="images/story2.jpg" alt="" style="width:200px;" />
+            <a href="{{ route('site', ['slug' => $website->slug]) }}" class="img-link">
+                <?php echo cl_image_tag($website->domain, array(
+                        "type" => "url2png",
+                        "crop" => "fill",
+                        "width" => 400,
+                        "height" => 266,
+                        "gravity" => "north",
+                        "style" => "width:200px;",
+                        "sign_url" => true
+                )); ?>
             </a>
         </div>
     </div>
