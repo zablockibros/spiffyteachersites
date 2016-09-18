@@ -10,6 +10,12 @@ use App\Http\Requests;
 
 class CategoriesController extends Controller
 {
+    public function index()
+    {
+        return view('categories.index', [
+        ]);
+    }
+    
     /**
      * List trivia by category
      *

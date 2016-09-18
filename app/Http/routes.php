@@ -13,6 +13,8 @@
 
 Route::get('/', 'CategoriesController@home');
 
+Route::get('categories', ['as' => 'category', 'uses' => 'CategoriesController@index']);
+
 Route::get('for/{slug}', ['as' => 'category', 'uses' => 'CategoriesController@view']);
 
 Route::get('site/{slug}', ['as' => 'site', 'uses' => 'WebsitesController@view']);

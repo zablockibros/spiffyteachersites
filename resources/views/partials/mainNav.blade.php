@@ -53,12 +53,7 @@
                     <!-- uninav -->
                     <ul class="uninav unibar-uninav uninav-fga-primary uninav-fillh auto-invert case-u fw-bold">
                         <li><a href="{{ url('/') }}">home</a></li>
-                        <li class="dropdown active"><a href="#" data-toggle="dropdown">Categories<i class="fs-80 ti-plus dd-icon open-rotz-135"></i></a>
-                            <ul class="dropdown-menu dropdown-right case-c">
-                                @foreach($categories as $category)
-                                    <li><a href="{{ route('category', $category->slug) }}">{{ $category->name }}</a></li>
-                                @endforeach
-                            </ul>
+                        <li><a href="{{ url('/categories') }}">Categories</a>
                         </li>
                         @if (Auth::guest())
                             <li><a href="{{ url('/register') }}">Submit Your Blog</a></li>
