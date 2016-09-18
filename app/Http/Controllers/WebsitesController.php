@@ -71,7 +71,7 @@ class WebsitesController extends Controller
         $validator = Validator::make($request->all(), [
             'domain' => [
                 'required',
-                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+                'regex:/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
                 'unique:websites,domain'
             ],
             'name' => 'required|min:2|max:140',
