@@ -1,5 +1,5 @@
-# triviaquestionsnow
-Trivia site
+# spiffyteachersites.com
+Teacher website/blog listings
 
 ## Run these after building server
 gulp

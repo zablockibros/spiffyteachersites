@@ -8,6 +8,19 @@
     <div class="unicard unicard-framed account-form">
         <div>
             <h5 class="text-center fw-bold">Submit your spiffy blog!</h5>
+            @if(Session::has('website-error'))
+                <p class="alert alert-danger">{{ Session::get('website-error') }}</p>
+            @endif
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <form method="POST" action="{{ route('sites.userCreate') }}">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group" style="margin-bottom:0;">

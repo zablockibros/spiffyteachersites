@@ -71,16 +71,22 @@ class WebsitesController extends Controller
         $validator = Validator::make($request->all(), [
             'domain' => [
                 'required',
-                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/'
+                'regex:/^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+                'unique'
             ],
             'name' => 'required|min:2|max:140',
             'description' => 'required|max:2000',
         ]);
 
         if ($validator->fails()) {
-            return redirect('user/sites/new')
+            return redirect(route('sites.userNew'))
                 ->withErrors($validator)
                 ->withInput();
+        }
+
+        if (Website::where('user_id', $request->user()->id)->count() > 0) {
+            $request->session()->flash('website-error', 'You have already created a blog listing.');
+            return redirect(route('sites.userNew'));
         }
 
         $data = $request->only(['domain','name','description']);
