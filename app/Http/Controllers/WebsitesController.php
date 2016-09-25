@@ -11,6 +11,13 @@ use Websites;
 
 class WebsitesController extends Controller
 {
+    /**
+     * View a website
+     *
+     * @param Request $request
+     * @param $slug
+     * @return mixed
+     */
     public function view(Request $request, $slug)
     {
         $website = Website::where('slug', $slug)->firstOrFail();
@@ -26,6 +33,12 @@ class WebsitesController extends Controller
         ]);
     }
 
+    /**
+     * Vote on a website
+     *
+     * @param Request $request
+     * @param $id
+     */
     public function vote(Request $request, $id)
     {
         $website = Website::findOrFail($id);
@@ -38,6 +51,12 @@ class WebsitesController extends Controller
         // else redirect to view page
     }
 
+    /**
+     * List your website listings
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function userIndex(Request $request)
     {
         $websites = Website::where('user_id', $request->user()->id)->paginate(10);
@@ -47,6 +66,12 @@ class WebsitesController extends Controller
         ]);
     }
 
+    /**
+     * Form for a new website
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function userNew(Request $request)
     {
         $categories = Category::all();
@@ -65,7 +90,13 @@ class WebsitesController extends Controller
             'selectCategories' => $selectCategories
         ]);
     }
-    
+
+    /**
+     * Create a website listing
+     *
+     * @param Request $request
+     * @return mixed
+     */
     public function userCreate(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -112,6 +143,13 @@ class WebsitesController extends Controller
         return redirect(route('sites.userView', ['id' => $website->id]));
     }
 
+    /**
+     * View your website property
+     *
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
     public function userView(Request $request, $id)
     {
         $website = Website::where(['id' => $id, 'user_id' => $request->user()->id])->firstOrFail();
@@ -134,13 +172,41 @@ class WebsitesController extends Controller
         ]);
     }
 
+    /**
+     * Run the edit on a website
+     *
+     * @param Request $request
+     * @param $id
+     * @return mixed
+     */
     public function userEdit(Request $request, $id)
     {
-        $website = Website::findOrFail($id);
+        $website = Website::where(['id' => $id, 'user_id' => $request->user()->id])->firstOrFail();
 
-        // if is application/json return json
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|min:2|max:140',
+            'description' => 'max:2000',
+        ]);
 
-        // else redirect to view page
+        if ($validator->fails()) {
+            return redirect(route('sites.userView', ['id' => $website->id]))
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $data = $request->only([
+            'name',
+            'description',
+        ]);
+
+        //echo '<pre>';
+        //print_r($data);
+        //echo '</pre>';
+        //die();
+
+        $website->update($data);
+
+        return redirect(route('sites.userView', ['id' => $website->id]));
     }
 
     public function userDelete(Request $request, $id)

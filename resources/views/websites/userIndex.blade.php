@@ -20,7 +20,7 @@
             <ul class="unimedia-list post-list">
                 @if (!empty($websites->total()))
                     @foreach($websites as $website)
-                        @include('partials.websiteItem', $website)
+                        @include('partials.yourWebsiteItem', $website)
                     @endforeach
                 @else
                     <p>You currently have no websites/blogs listed.</p>

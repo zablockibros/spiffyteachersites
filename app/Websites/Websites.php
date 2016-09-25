@@ -9,6 +9,11 @@ use Carbon\Carbon;
 
 class Websites
 {
+    public function getDomainAttribute()
+    {
+        return (strpos($this->domain, 'http') == 0) ? $this->domain : 'http://'.$this->domain;
+    }
+
     public function calculateRanksForCategory(Category $category = null)
     {
         $thisMonth = Carbon::now('UTC');

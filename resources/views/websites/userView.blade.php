@@ -8,7 +8,7 @@
 <div class="unicard unicard-framed account-form">
     <div>
         <h5 class="text-center fw-bold">Manage "{{ $website->name }}"</h5>
-        <form method="POST" action="{{ route('sites.userCreate') }}">
+        <form method="POST" action="{{ route('sites.userEdit', ['id' => $website->id]) }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
             <div class="form-group" style="margin-bottom:0;">
                 <label class="control-label" for="inputGroupSuccess1">{{ $website->domain }}</label>
