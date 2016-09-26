@@ -43,6 +43,22 @@
                 </p>
             </div>
             @endif
+            @if (!empty($website->pinterest))
+                <div class="">
+                    <p style="margin-bottom:0;">
+                        <strong>Pinterest: </strong>
+                        <a href="{{ $website->pinterest }}" target="_blank">{{ $website->pinterest }}</a>
+                    </p>
+                </div>
+            @endif
+            @if (!empty($website->tpt))
+                <div class="">
+                    <p style="margin-bottom:0;">
+                        <strong>Teachers Pay Teachers: </strong>
+                        <a href="{{ $website->tpt }}" target="_blank">{{ $website->tpt }}</a>
+                    </p>
+                </div>
+            @endif
         </form>
     </div>
 </div>
