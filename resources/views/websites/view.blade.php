@@ -40,6 +40,10 @@
                 <a href="{{ route('category', ['slug' => $category->slug]) }}">Ranked #{{ $category->pivot->rank }} {{ $category->name }}</a>
             @endforeach
         </div>
+        <div style="margin-bottom:15px;">
+            <span><i class="ti-time fg-text-l" style="margin-right:5px;"></i>{{ $website->vote_count }} votes (last 30 days)</span><br />
+            <span><i class="ti-comment-alt fg-text-l" style="margin-right:5px;"></i>{{ $website->view_count }} views (last 30 days)</span>
+        </div>
         <div class="">
             <p style="margin-bottom:0;">
                 <strong>URL: </strong>
