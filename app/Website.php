@@ -54,4 +54,13 @@ class Website extends Model implements SluggableInterface
     {
         return $this->getViewCount();
     }
+
+    public function getDomainAttribute($value)
+    {
+        if (strpos($value, 'http') === FALSE) {
+            return 'http://'.$value;
+        }
+
+        return $value;
+    }
 }
