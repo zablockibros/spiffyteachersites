@@ -35,26 +35,30 @@
 </div>
 <!-- /unicard -->
 
+<?php /*
 {!! $websites->links() !!}
+*/ ?>
 
+@if ($websites->lastPage() > 1)
 <!-- pagination -->
 <nav class="mgb-30">
     <ul class="pagination pagination-lg no-mg">
-        <li>
-            <a href="#" aria-label="Previous">
+        <li class="{{ ($websites->currentPage() == 1) ? ' disabled' : '' }}">
+            <a href="{{ $websites->url(1) }}">
                 <span aria-hidden="true">&laquo;</span>
             </a>
         </li>
-        <li class="active"><a href="#">1</a></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li>
-            <a href="#" aria-label="Next">
+        @for ($i = 1; $i <= $websites->lastPage(); $i++)
+            <li class="{{ ($websites->currentPage() == $i) ? ' active' : '' }}">
+                <a href="{{ $websites->url($i) }}">{{ $i }}</a>
+            </li>
+        @endfor
+        <li class="{{ ($websites->currentPage() == $websites->lastPage()) ? ' disabled' : '' }}">
+            <a href="{{ $websites->url($websites->currentPage()+1) }}" >
                 <span aria-hidden="true">&raquo;</span>
             </a>
         </li>
     </ul>
 </nav>
+@endif
 <!-- /pagination -->
