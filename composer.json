@@ -14,7 +14,8 @@
         "doctrine/dbal": "^2.5",
         "maatwebsite/excel": "^2.1",
         "cviebrock/eloquent-taggable": "^2.0",
-        "jrm2k6/cloudder": "0.2.*"
+        "jrm2k6/cloudder": "0.2.*",
+        "guzzlehttp/guzzle": "~5.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
