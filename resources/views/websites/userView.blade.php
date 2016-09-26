@@ -44,6 +44,10 @@
 
             <button class="btn btn-green btn-block">Update Blog</button>
         </form>
+
+        {{ Form::open(['method' => 'DELETE', 'route' => ['sites.userDelete', $website->id]]) }}
+        {{ Form::submit('Delete this Blog', ['class' => 'btn btn-danger btn-block']) }}
+        {{ Form::close() }}
     </div>
 </div>
 

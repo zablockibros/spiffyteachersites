@@ -223,8 +223,15 @@ class WebsitesController extends Controller
     public function userDelete(Request $request, $id)
     {
         $website = Website::where(['id' => $id, 'user_id' => $request->user()->id])->firstOrFail();
+        $categories = $website->categories;
 
         $website->delete();
+
+        // Calculate ranks
+        Websites::calculateRanksForCategory(null);
+        foreach ($categories as $category) {
+            Websites::calculateRanksForCategory($category);
+        }
 
         // else redirect to view page
         return redirect(route('sites.userIndex'));
