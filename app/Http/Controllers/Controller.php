@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 use App\Category;
+use App\Website;
 use View;
 
 class Controller extends BaseController
@@ -17,7 +18,9 @@ class Controller extends BaseController
     public function __construct()
     {
         $categories = Category::all();
+        $topSites = Website::orderBy('rank', 'asc')->limit(5)->get();
 
         View::share('categories', $categories);
+        View::share('topSites', $topSites);
     }
 }

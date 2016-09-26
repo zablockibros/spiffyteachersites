@@ -79,7 +79,7 @@
             <!-- /nav cell -->
             <!-- cell -->
             <div class="unibar-cell hidden-xs hidden-sm cell-min case-u">
-                Sunday, July 3, 2016
+                Resources for Teachers
             </div>
             <!-- /cell -->
         </div>
