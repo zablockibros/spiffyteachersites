@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Vote;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Website;
@@ -28,8 +30,28 @@ class WebsitesController extends Controller
             }
         }
 
+        $thisMonth = Carbon::now('UTC');
+        $thisMonth->subDays(30);
+        
+        if ($request->user()) {
+            $vote = Vote::where([
+                'website_id' => $website->id,
+                'user_id' => $request->user()->id,
+            ])
+                ->where('updated_at', '>=', $thisMonth->format('Y-m-d H:i:s'))
+                ->first();
+        } else {
+            $vote = Vote::where([
+                'website_id' => $website->id,
+                'session_id' => $request->session()->getId(),
+            ])
+                ->where('updated_at', '>=', $thisMonth->format('Y-m-d H:i:s'))
+                ->first();
+        }
+
         return view('websites.view', [
-            'website' => $website
+            'website' => $website,
+            'vote' => $vote,
         ]);
     }
 
@@ -43,12 +65,55 @@ class WebsitesController extends Controller
     {
         $website = Website::findOrFail($id);
 
+        $thisMonth = Carbon::now('UTC');
+        $thisMonth->subDays(30);
+
         // create a vote for this site and recalculate site votes
         // by session id
+        if ($request->user()) {
+            $vote = Vote::where([
+                'website_id' => $website->id,
+                'user_id' => $request->user()->id,
+            ])
+                ->where('updated_at', '>=', $thisMonth->format('Y-m-d H:i:s'))
+                ->first();
+        } else {
+            $vote = Vote::where([
+                'website_id' => $website->id,
+                'session_id' => $request->session()->getId(),
+            ])
+                ->where('updated_at', '>=', $thisMonth->format('Y-m-d H:i:s'))
+                ->first();
+        }
+
+        // create or update the vote
+        $vote = $vote ?: new Vote();
+        $vote->website_id = $website->id;
+        $vote->value = 1;
+        if ($request->user()) {
+            $vote->user_id = $request->user()->id;
+        } else {
+            $vote->session_id = $request->session()->getId();
+        }
+        $vote->save();
+
+        // update website vote status
+        $website->last_voted = Carbon::now('UTC')->toDateTimeString();
+        $website->updateVoteCount();
+        $website->save();
+
+        // Update calculations
+        Websites::calculateRanksForCategory(null);
+        $categories = $website->categories;
+        foreach ($categories as $category) {
+            Websites::calculateRanksForCategory($category);
+        }
 
         // if is application/json return json
 
         // else redirect to view page
+        return redirect(route('site', ['slug' => $website->slug]));
+
     }
 
     /**

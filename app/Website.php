@@ -19,6 +19,15 @@ class Website extends Model implements SluggableInterface
     ];
 
     protected $guarded = [];
+    
+    protected $fillable = [
+        'domain',
+        'name',
+        'description',
+        'pinterest',
+        'tpt',
+        'user_id',
+    ];
 
     public function user()
     {
@@ -62,5 +71,18 @@ class Website extends Model implements SluggableInterface
         }
 
         return $value;
+    }
+
+    /**
+     * Updates the vote counts for this website
+     * 
+     * @return bool
+     */
+    public function updateVoteCount()
+    {
+        $votes = $this->votes;
+        
+        $this->vote_count = count($votes);
+        return $this->save();
     }
 }

@@ -9,11 +9,6 @@ use Carbon\Carbon;
 
 class Websites
 {
-    public function getDomainAttribute()
-    {
-        return (strpos($this->domain, 'http') == 0) ? $this->domain : 'http://'.$this->domain;
-    }
-
     public function calculateRanksForCategory(Category $category = null)
     {
         $thisMonth = Carbon::now('UTC');
@@ -33,10 +28,10 @@ class Websites
                 ->get();
 
             $rank = 0;
-            $score = -1;
+            $score = 999999999;
 
             foreach ($websites as $website) {
-                if ($website->votes_count > $score) {
+                if ($website->votes_count < $score) {
                     $score = $website->votes_count;
                     $rank++;
                 }
@@ -44,18 +39,17 @@ class Websites
                 $website->categories[0]->pivot->save();
             }
         } else {
-            $websites = Website::where('deleted_at', null)
-                ->withCount(['votes' => function ($query) use ($thisMonth) {
+            $websites = Website::withCount(['votes' => function ($query) use ($thisMonth) {
                     $query->where('updated_at', '>=', $thisMonth->format('Y-m-d H:i:s'));
                 }])
                 ->orderBy('votes_count', 'desc')
                 ->get();
 
             $rank = 0;
-            $score = -1;
+            $score = 999999999;
 
             foreach ($websites as $website) {
-                if ($website->votes_count > $score) {
+                if ($website->votes_count < $score) {
                     $score = $website->votes_count;
                     $rank++;
                 }

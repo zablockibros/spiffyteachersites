@@ -40,7 +40,7 @@ class CategoriesController extends Controller
     {
         $category = Category::where('slug', '=', $slug)->firstOrFail();
         $websites = $category->websites()
-            ->orderBy('pivot_rank', 'desc')
+            ->orderBy('pivot_rank', 'asc')
             ->paginate(10);
 
         return view('categories.view', [
