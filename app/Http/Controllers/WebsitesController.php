@@ -99,14 +99,25 @@ class WebsitesController extends Controller
      */
     public function userCreate(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $data = $request->all();
+
+        $validator = Validator::make($data, [
             'domain' => [
                 'required',
                 'regex:/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
-                'unique:websites,domain'
+                'unique:websites,domain',
             ],
             'name' => 'required|min:2|max:140',
             'description' => 'required|max:2000',
+            'pinterest' => [
+                'regex:/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            ],
+            'tpt' => [
+                'regex:/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            ],
+        ], [
+            'pinterest.regex' => 'Your Pinterest link is not a proper URL',
+            'tpt.regex' => 'Your TeachersPayTeachers link is not a proper URL',
         ]);
 
         if ($validator->fails()) {
@@ -120,13 +131,7 @@ class WebsitesController extends Controller
             return redirect(route('sites.userNew'));
         }
 
-        $data = $request->only(['domain','name','description']);
         $data['user_id'] = $request->user()->id;
-
-        //echo '<pre>';
-        //print_r($request->all());
-        //echo '</pre>';
-        //die();
 
         $website = Website::create($data);
 
@@ -186,6 +191,15 @@ class WebsitesController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:2|max:140',
             'description' => 'max:2000',
+            'pinterest' => [
+                'regex:/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            ],
+            'tpt' => [
+                'regex:/^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/',
+            ],
+        ], [
+            'pinterest.regex' => 'Your Pinterest link is not a proper URL',
+            'tpt.regex' => 'Your TeachersPayTeachers link is not a proper URL',
         ]);
 
         if ($validator->fails()) {
@@ -197,12 +211,9 @@ class WebsitesController extends Controller
         $data = $request->only([
             'name',
             'description',
+            'pinterest',
+            'tpt',
         ]);
-
-        //echo '<pre>';
-        //print_r($data);
-        //echo '</pre>';
-        //die();
 
         $website->update($data);
 
@@ -211,10 +222,11 @@ class WebsitesController extends Controller
 
     public function userDelete(Request $request, $id)
     {
-        $website = Website::findOrFail($id);
+        $website = Website::where(['id' => $id, 'user_id' => $request->user()->id])->firstOrFail();
 
-        // if is application/json return json
+        $website->delete();
 
         // else redirect to view page
+        return redirect(route('sites.userIndex'));
     }
 }

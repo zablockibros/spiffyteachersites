@@ -26,6 +26,22 @@
                         <strong>{{ $errors->first('description') }}</strong>
                     </span>
             @endif
+
+
+            <input class="text-box form-control" type="text" name="pinterest" value="{{ $website->pinterest }}" placeholder="Pinterest URL" />
+            @if ($errors->has('pinterest'))
+                <span class="help-block">
+                        <strong>{{ $errors->first('pinterest') }}</strong>
+                    </span>
+            @endif
+
+            <input class="text-box form-control" type="text" name="tpt" value="{{ $website->tpt }}" placeholder="Teachers Pay Teachers URL" />
+            @if ($errors->has('tpt'))
+                <span class="help-block">
+                        <strong>{{ $errors->first('tpt') }}</strong>
+                    </span>
+            @endif
+
             <button class="btn btn-green btn-block">Update Blog</button>
         </form>
     </div>

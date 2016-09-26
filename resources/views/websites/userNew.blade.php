@@ -39,12 +39,28 @@
                         <strong>{{ $errors->first('name') }}</strong>
                     </span>
                 @endif
+
                 <textarea class="form-control" rows="5" name="description" value="{{ old('description') }}" placeholder="Description..."></textarea>
                 @if ($errors->has('description'))
                     <span class="help-block">
                         <strong>{{ $errors->first('description') }}</strong>
                     </span>
                 @endif
+
+                <input class="text-box form-control" type="text" name="pinterest" value="{{ old('pinterest') }}" placeholder="Pinterest URL" />
+                @if ($errors->has('pinterest'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('pinterest') }}</strong>
+                    </span>
+                @endif
+
+                <input class="text-box form-control" type="text" name="tpt" value="{{ old('tpt') }}" placeholder="Teachers Pay Teachers URL" />
+                @if ($errors->has('tpt'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('tpt') }}</strong>
+                    </span>
+                @endif
+
                 <button class="btn btn-green btn-block">List Blog</button>
             </form>
         </div>
