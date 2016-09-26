@@ -72,8 +72,9 @@
                         </div>
                     </div>
                     <!-- /img -->
-                    <form>
-                        <input type="text" class="form-control text-box" placeholder="Your Email Address">
+                    <form method="POST" action="{{ route('subscribe') }}">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <input type="text" class="form-control text-box" name="email" placeholder="Your Email Address">
                         <button class="btn btn-primary btn-block">Subscribe Now!</button>
                     </form>
                 </div>

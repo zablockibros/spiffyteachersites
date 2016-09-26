@@ -21,6 +21,8 @@ Route::get('site/{slug}', ['as' => 'site', 'uses' => 'WebsitesController@view'])
 
 Route::post('site/{id}/vote', ['as' => 'site.vote', 'uses' => 'WebsitesController@vote']);
 
+Route::post('subscribe', ['as' => 'subscribe', 'uses' => 'SubscribersController@newsletter']);
+
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'user'], function() {
 

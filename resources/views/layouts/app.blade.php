@@ -31,6 +31,13 @@
                 <!-- Main Col -->
                 <div class="col-md-8 main-col">
 
+                    @if(Session::has('subscriber-error'))
+                        <p class="alert alert-danger">{{ Session::get('subscriber-error') }}</p>
+                    @endif
+                    @if(Session::has('subscriber-success'))
+                        <p class="alert alert-success">{{ Session::get('subscriber-success') }}</p>
+                    @endif
+
                     @yield('content')
 
                 </div>
