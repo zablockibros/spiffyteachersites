@@ -16,6 +16,7 @@
                 <a href="{{ url('/') }}" class="unibar-brand fw-bold">SpiffyTeacherSites</a>
             </div>
             <!-- /brand cell -->
+            <?php /*
             <!-- brand cell -->
             <div class="unibar-cell search-toggle-cell">
                 <div class="ie-fix">
@@ -23,12 +24,14 @@
                 </div>
             </div>
             <!-- /brand cell -->
+            */ ?>
         </div>
         <!-- /header block -->
         <!-- nav block -->
         <div class="unibar-block nav-block bg-inherit">
             <!-- nav cell -->
             <div class="unibar-cell nav-cell cell-max">
+                <?php /*
                 <!-- unibar search -->
                 <form class="unibar-search">
                     <div class="search-box">
@@ -36,6 +39,7 @@
                         <button type="button" class="btn btn-primary case-u"><i class="fa-search mgr-5"></i>search</button>
                     </div>
                 </form>
+                */ ?>
                 <!-- /unibar search -->
                 <!-- mobile quick links -->
                 <div class="visible-sm visible-xs">
