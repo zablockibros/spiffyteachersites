@@ -90,6 +90,7 @@ class WebsitesController extends Controller
         $vote = $vote ?: new Vote();
         $vote->website_id = $website->id;
         $vote->value = 1;
+        $vote->type = 'vote';
         if ($request->user()) {
             $vote->user_id = $request->user()->id;
         } else {
@@ -99,8 +100,8 @@ class WebsitesController extends Controller
 
         // update website vote status
         $website->last_voted = Carbon::now('UTC')->toDateTimeString();
-        $website->updateVoteCount();
         $website->save();
+        $website->updateVoteCount();
 
         // Update calculations
         Websites::calculateRanksForCategory(null);
@@ -108,8 +109,6 @@ class WebsitesController extends Controller
         foreach ($categories as $category) {
             Websites::calculateRanksForCategory($category);
         }
-
-        // if is application/json return json
 
         // else redirect to view page
         return redirect(route('site', ['slug' => $website->slug]));

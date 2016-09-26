@@ -46,22 +46,22 @@ class Website extends Model implements SluggableInterface
 
     public function getVoteCount()
     {
-        return Vote::where(['website_id' => $this->id, 'type' => 'vote'])->count();
-    }
-    
-    public function getVoteCountAttribute()
-    {
-        return $this->getVoteCount();
+        $thisMonth = Carbon::now('UTC');
+        $thisMonth->subDays(30);
+
+        return Vote::where(['website_id' => $this->id, 'type' => 'vote'])
+            ->where('updated_at', '>=', $thisMonth->format('Y-m-d H:i:s'))
+            ->count();
     }
 
     public function getViewCount()
     {
-        return Vote::where(['website_id' => $this->id, 'type' => 'view'])->count();
-    }
+        $thisMonth = Carbon::now('UTC');
+        $thisMonth->subDays(30);
 
-    public function getViewCountAttribute()
-    {
-        return $this->getViewCount();
+        return Vote::where(['website_id' => $this->id, 'type' => 'view'])
+            ->where('updated_at', '>=', $thisMonth->format('Y-m-d H:i:s'))
+            ->count();
     }
 
     public function getDomainAttribute($value)
@@ -80,9 +80,8 @@ class Website extends Model implements SluggableInterface
      */
     public function updateVoteCount()
     {
-        $votes = $this->votes;
-        
-        $this->vote_count = count($votes);
+        $this->vote_count = $this->getVoteCount();
+        $this->view_count = $this->getViewCount();
         return $this->save();
     }
 }
